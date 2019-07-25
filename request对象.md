@@ -14,3 +14,7 @@
       - 获取键的值：req.getParameter(String key);
       - 获取所有键名：req.getParameterNames();   返回枚举类型
       - 获取一个键对应多个值的键值：req.getParameterValues();    返回一个String数组
+      
+ ### :pear:request对象的作用域
+    
+
