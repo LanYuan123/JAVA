@@ -16,5 +16,10 @@
       - 获取一个键对应多个值的键值：req.getParameterValues();    返回一个String数组
       
  ### :pear:request对象的作用域
+ 
+  - 基于**请求转发**，**一次请求中**的**所有Servlet**之间的数据流转与共享</br>
+  - 除了request对象自带的浏览器传来的信心，我们也可以自己像request对象中添加信息，一样是按照键值对的形式添加。</br>
+  - 添加信息：req.setAttribute(String key,String value);</br>
+  - 获取新信息：req.getAttribute(String key);
     
 
