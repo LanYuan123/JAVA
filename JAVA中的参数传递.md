@@ -110,10 +110,15 @@ first
 
 &nbsp;&nbsp;&nbsp;我们现在有一把钥匙，当我们的朋友想去我们家里时，我们直接把我们的钥匙给他，这就是**引用传递**，在这种情况下，如果他对这把钥匙做了什么事，比如说刻下了自己的名字，那么这把钥匙归还给你的时候，钥匙上也会多出他刻下的名字
 
+![钥匙与房子](https://github.com/LanYuan123/JAVA/blob/master/img/2.png)
+
 &nbsp;&nbsp;&nbsp;我们现在有一把钥匙，当我们的朋友想去我们家里时，我们复制一把备用钥匙给他，自己的钥匙还是在自己手里，这就是**值传递**，这种情况下，他对他那把钥匙做什么，都不会影响到你手里的钥匙
+
+![钥匙与房子](https://github.com/LanYuan123/JAVA/blob/master/img/3.png)
 
 &nbsp;&nbsp;&nbsp;但是，上面的两种情况，你朋友拿着你的钥匙进入到家里，把你的电脑弄坏了，你同样是会受到影响的，哦们在change方法中，改变user对象的name属性时，不正是在“弄坏电脑吗”，我们改变的不是那把钥匙，而是钥匙打开的房子。
 
+![钥匙与房子](https://github.com/LanYuan123/JAVA/blob/master/img/4.png)
 
 
 
