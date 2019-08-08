@@ -5,7 +5,7 @@
 :heavy_check_mark:答案是：**对象作为参数传递是值传递，并且在JAVA中，:heavy_exclamation_mark::heavy_exclamation_mark::heavy_exclamation_mark:只有按值传递，没有按引用传递！**
 
 -----
-我们在回答为什么之前，先来看看**形参**是什么，**实参**是什么，什么是**值传递**，什么又是**引用传递**
+我们在解释为什么之前，先来看看**形参**是什么，**实参**是什么，什么是**值传递**，什么又是**引用传递**
 
 **形参：是在定义函数名和函数体的时候使用的参数,目的是用来接收调用该函数时传入的参数。**
 
@@ -17,9 +17,11 @@
 
 ------
 
-在弄清楚了这些概念之后，我们现在通过代码实践的方式，来看看JAVA中到底是值传递还是引用传递:question::question::question:
+在弄清楚了这些概念之后，我们现在通过代码实践的方式，来看看JAVA中到底为什么是值传递:question::question::question:
 
 首先我们来看这样一段代码：</br>
+:arrow_down:</br>
+
 :one:
 ```
 public class Test {
@@ -69,6 +71,45 @@ public class Test {
 change方法内的name：second
 main方法内的name：second
 ```
-从这样的结果来看，在change方法体内对user对象进行的操作已经影响到了main方法体内的user对象
+从这样的结果来看，在change方法体内对user对象进行的操作也已经改变了main方法体内的user对象，那么就此结果来说JAVA看上去又像是可以引用传递的，但是这里有一段代码却提出了疑问</br>
+
+:arrow_down:</br>
 
 :three:
+```
+public class Test {
+    public static void main(String[] args) {
+        Test test = new Test();
+        String name = "first";
+        test.change(name);
+        System.out.println(name);
+    }
+
+    public void change(String name){
+        name = "second";
+        System.out.println(name);
+    }
+}
+```
+运行结果：
+```
+second
+first
+```
+这样的运行结果，让我们看起来JAVA又是值传递，那么我们到底该作何解释呢？
+
+#### JAVA中的值传递
+ &nbsp;|值传递|引用传递
+---|:--:|---:
+根本区别|会创建副本(Copy)|不创建副本
+所以|函数无法改变原始对象|函数可以改变原始对象
+
+我们在上面的几个例子之中，都只是关注了传参之后实参内容是否有所改变，但其实我们从一开始得到观察方法上就错了，我们要看的应该是它如何造成这样的结果的，而不是只看结果来得出结论，这样得出的结论当然是错误的。
+
+关于值传递和引用传递我们可以举一个生活中实际的例子来看：
+>>> 我们现在有一把**钥匙（对象）**，当我们的朋友想去我们家里时（**即函数被调用时**），我们直接把我们的钥匙给他，这就是**引用传递**，
+
+
+
+
+
