@@ -14,3 +14,11 @@
       1. 创建一个类实现**ActionListener**接口</br>
       2. 在该类中必须覆写**actionPerformed()方法**</br>
       3. **addActionListener()方法**添加监听器
+     
+![监听器](https://github.com/LanYuan123/JAVA/blob/master/Swing/img/%E7%9B%91%E5%90%AC%E5%99%A8%20.png)
+
+  ## 匿名内部类对监听器使用的优化
+  
+  我们在使用监听器的时候，都会创建一个类来实现ActionListener接口，我们在开发的时候会使用很多个按钮，要是用很多个只用一次的内部类，就会写很多，为了解决这个问题，我们可以使用匿名内部类来优化
+  
+  ![匿名内部类](https://github.com/LanYuan123/JAVA/blob/master/Swing/img/%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB.png)
