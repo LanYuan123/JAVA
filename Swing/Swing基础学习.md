@@ -22,3 +22,8 @@
   我们在使用监听器的时候，都会创建一个类来实现ActionListener接口，我们在开发的时候会使用很多个按钮，要是用很多个只用一次的内部类，就会写很多，为了解决这个问题，我们可以使用匿名内部类来优化
   
   ![匿名内部类](https://github.com/LanYuan123/JAVA/blob/master/Swing/img/%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB.png)
+  
+  ## 再优化：使用lambda表达式
+  
+  我们在使用匿名内部类的时候，虽然已经进行了一次简化，但是使用匿名内部类时，还是会有大量相同的代码，为了更进一步的优化代码，我们可以使用lambda表达式
+  ![lambda表达式](https://github.com/LanYuan123/JAVA/blob/master/Swing/img/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.png)
