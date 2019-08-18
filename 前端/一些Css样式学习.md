@@ -27,3 +27,11 @@ G：绿色值。正整数 （0~255）
 B：蓝色值。正整数（0~255）
 
 A：透明度。取值0~1之间
+
+### 去掉ul中li标签前面的原点
+
+list-style-type: none;
+
+### 去掉a标签的下划线效果
+
+text-decoration：none;
