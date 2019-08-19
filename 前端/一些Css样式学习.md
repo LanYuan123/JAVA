@@ -39,3 +39,15 @@ text-decoration：none;
 ### 一些好看的配色
 
 ![好看的配色](https://github.com/LanYuan123/JAVA/blob/master/%E5%89%8D%E7%AB%AF/img/%E9%A2%9C%E8%89%B2.png)
+
+### 元素溢出元素框时解决办法
+
+overflow 属性规定当内容溢出元素框时发生的事情
+
+值| 描述
+--|:--:
+visible | 默认值。内容不会被修剪，会呈现在元素框之外。
+hidden | 内容会被修剪，并且其余内容是不可见的。
+scroll | 内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。
+auto | 如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。
+
