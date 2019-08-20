@@ -65,8 +65,10 @@ CSS transitions 可以决定哪些属性发生动画效果 (明确地列出这�
 
 ### 设置网页title标签小图标
 
-![title小图标]()
+![title小图标](https://github.com/LanYuan123/JAVA/blob/master/%E5%89%8D%E7%AB%AF/img/title%E6%A0%87%E7%AD%BE.png)
 
 **href：小标签图标的地址**
 
 **size：图片的大小**
+
+**size可以不要**
