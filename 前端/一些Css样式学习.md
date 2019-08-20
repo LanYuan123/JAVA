@@ -62,3 +62,11 @@ CSS transitions 提供了一种在更改CSS属性时控制动画速度的方法�
 **transition不支持display属性**
 
 CSS transitions 可以决定哪些属性发生动画效果 (明确地列出这些属性)，何时开始 (设置 delay），持续多久 (设置 duration) 以及如何动画 (定义timing funtion，比如匀速地或先快后慢)。
+
+### 设置网页title标签小图标
+
+![title小图标]()
+
+**href：小标签图标的地址**
+
+**size：图片的大小**
