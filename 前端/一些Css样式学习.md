@@ -72,3 +72,57 @@ CSS transitions 可以决定哪些属性发生动画效果 (明确地列出这�
 **size：图片的大小**
 
 **size可以不要**
+
+### 使用border画三角形
+
+我们先看一看border
+
+HTML代码：
+```
+<div id="demo"></div>
+```
+CSS代码：
+```
+#demo{
+            width:100px;
+            height:100px;
+            border:3px red solid;
+        }
+```
+效果如图所示：</br>
+![border](https://github.com/LanYuan123/Java_Web/blob/master/%E5%89%8D%E7%AB%AF/img/border.png)
+
+border是这样划分的，但是border-top,border-buttom,border-left,border-right却不是这样划分的
+
+CSS代码：
+```
+#demo{
+             width:100px;  
+             height:100px;  
+             border: 20px solid;  
+             border-color: red blue red blue; 
+        }
+```
+
+效果如图所示：</br>
+![border-width](https://github.com/LanYuan123/Java_Web/blob/master/%E5%89%8D%E7%AB%AF/img/border-width.png)
+
+从图中我们可以看到每个border其实都是一个梯形，这并不像之前以为的矩形</br>
+其中梯形的上底边等于div的width,下底边为我自己设置</br>
+**为了把梯形变为三角形，我们就要缩小div的width** </br>
+
+```
+#demo{
+             width:0px;  
+             height:0px;  
+             border: 40px solid;  
+             border-color: red blue red blue; 
+        }
+```
+
+![三角形](https://github.com/LanYuan123/Java_Web/blob/master/%E5%89%8D%E7%AB%AF/img/%E4%B8%89%E8%A7%92%E5%BD%A2.png)
+
+在这种情况下，4个梯形变成了4个个三角形
+这时我们在把其他3条边设为transparent，就会得到如图所示的三角形
+
+![单三角形](https://github.com/LanYuan123/Java_Web/blob/master/%E5%89%8D%E7%AB%AF/img/%E5%8D%95%E4%B8%AA%E4%B8%89%E8%A7%92%E5%BD%A2.png)
