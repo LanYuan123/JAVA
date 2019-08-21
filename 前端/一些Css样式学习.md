@@ -126,3 +126,7 @@ CSS代码：
 这时我们在把其他3条边设为transparent，就会得到如图所示的三角形
 
 ![单三角形](https://github.com/LanYuan123/Java_Web/blob/master/%E5%89%8D%E7%AB%AF/img/%E5%8D%95%E4%B8%AA%E4%B8%89%E8%A7%92%E5%BD%A2.png)
+
+### 元素围绕定点旋转
+
+transform:rotate(角度);
