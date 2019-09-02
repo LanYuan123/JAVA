@@ -37,7 +37,7 @@ MVC其实就是提供一种规则，让你把相同类型的代码放在一起�
 
 控制层，Controller层的功能就是将Model和View层进行关联。比如View主要是显示数据的，但是数据又需要Model去访问，这样的话，View会先告诉Controller，然后Controller再告诉Model，Model请求完数据之后，再告诉View。这样View就可以显示数据了。
 
-关于Spring MVC和Struts，与MVC的关系：
+**关于Spring MVC和Struts，与MVC的关系：**
 
 大家还记得在上面我举过的一个例子，MVC好比鞋柜。那Spring和Struts2只是不同牌子的鞋柜而已。并且Spring MVC和Struts2只是一个协助程序员更好实现MVC分层架构的框架而已。就是说，我们实现MVC不一定非要使用Spring或者struts2，自己按照MVC的理解，自己完成自己代码的分层也行。就好比自己在家用木棍自己制作一个鞋柜也照样可以把鞋子摆放整齐，当然，这样做的话首先要你有这样的一个木工技术。我们没有必要为了一个鞋柜，还要自己去学习木工技术，所以最好最快的方式就是去超市买一个鞋柜。
 
