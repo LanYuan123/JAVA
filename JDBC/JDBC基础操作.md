@@ -41,12 +41,12 @@ JDBC中主要是5大对象：
  
  方法：
  ```
- static connection getConnection(String url,String user,String password);
+ static connection getConnection(String url);
  ```
  参数：
  
  url：指定连接的地址</br>
- **语法：jdbc:sqlserver://ip地址（域名）:端口号/数据库名称**
+ **语法："jdbc:sqlserver://ip地址（域名）:端口号;databaseName=数据库名称;user=用户名;password=密码;"**
  
  ### :peach:Connection
  
