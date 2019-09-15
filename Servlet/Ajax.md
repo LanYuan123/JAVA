@@ -5,7 +5,7 @@
 1. [Ajax的使用步骤](#1-ajax的使用步骤)
 2. [Ajax的异步和同步](#2-ajax的异步和同步)
 3. [Ajax的响应数据格式](#3-ajax响应数据格式)
-4. [Ajax的状态值(readyState)](#4-ajax的状态值(readyState))
+4. [Ajax的状态值(readyState)](#4-ajax的状态值)
 5. [Ajax的请求方式](#5-ajax的请求方式)
 
 ---    
@@ -82,7 +82,7 @@ eval("var u=" + result);
     
 ---
 
-## 4. Ajax的状态值(readyState)
+## 4. Ajax的状态值
     在Ajax运行过程中，对于访问XMLHttpRequest不是一次就完成的，而是经历多种状态后获取的结果。
     
 对于这种状态在Ajax中分为5种状态，有五种状态值：
