@@ -36,7 +36,7 @@ hs.setMaxInactiveInterval(int seconds);
 
 如果在指定的时间内session对象没有被使用则被销毁，如果使用了则重新计时
 
-- **设置session强制失效
+- **设置session强制失效**
 
 hs.invalidate();
 
