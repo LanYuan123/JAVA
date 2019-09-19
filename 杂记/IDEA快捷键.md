@@ -4,4 +4,5 @@
 |:--:|:--:
 Alt + Enter|快速导入包
 Ctrl + O|快速覆写父类或接口中的方法
-Alt + Insert|寻找getter和setter的快捷键
+Alt + Insert|快速创建set和get方法
+Alt + Insert|快速创建构造函数
