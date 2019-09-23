@@ -89,8 +89,100 @@ Hello对象由Spring容器创建，同时对象属性也由Spring容器来设置
 ## IOC创建对象的三种方式
 
 ### :sunny: 通过无参的构造方法来创建
+
+   User..java
+   ```
+   public class User {
+    public User(){
+        System.out.println("这是无参构造！");
+    }
+    private String name;
+
+    public void setName(String name){
+        this.name = name;
+    }
+    public void show(){
+        System.out.println("hello"+ name);
+    }
+}
+   ```
+   beans.xml
+   ```
+   <bean id="user" class="bean.User">
+        <property name="name" value="张三"/>
+    </bean>
+   ```
 ### :sunny: 通过有参的构造方法来创建
-    - 通过
+
+   - 通过参数的下标来设置
+   
+       User.java
+       ```
+       public class User {
+          public User(String name){
+              this.name = name;
+              System.out.println("这是有参构造！");
+          }
+          private String name;
+
+          public void setName(String name){
+              this.name = name;
+          }
+          public void show(){
+              System.out.println("hello"+ name);
+          }
+       }
+       ```
+       beans.xml
+       ```
+       <bean id ="user" class="bean.User">
+        <!--index指构造方法，参数下标从0开始-->
+        <constructor-arg index="0" value="李四"></constructor-arg>
+       </bean>
+       ```
+       
+       index代表构造方法的第几个参数
+       
+       如果有多个参数则使用多个constructor-arg标签
+       
+   - 通过参数名称来设置
+   
+       User.java
+       ```
+       public class User {
+          public User(String name){
+              this.name = name;
+              System.out.println("这是有参构造！");
+          }
+          private String name;
+
+          public void setName(String name){
+              this.name = name;
+          }
+          public void show(){
+              System.out.println("hello"+ name);
+          }
+       }
+       ```
+       beans.xml
+       ```
+       <bean id ="user" class="bean.User">
+        <!--name指参数名-->
+        <constructor-arg name="name" value="李四"></constructor-arg>
+    </bean>
+       ```
+       
+       name指参数名，如果有多个参数，则使用多个constructor-arg标签
+       
+   - 通过参数的类型
+   
+       User.java
+       ```
+       
+       ```
+       beans.xml
+       ```
+       ```
 ### :sunny: 通过工厂类来创建
    - 静态工厂
    - 动态工厂
