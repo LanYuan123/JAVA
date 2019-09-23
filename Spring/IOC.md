@@ -5,6 +5,8 @@
       3. AOP面向切面编程
       4. 对事务的支持
       
+---
+
 ## IOC -- inversion fo control 控制反转
     控制是对创建对象的控制
     
@@ -112,6 +114,9 @@ Hello对象由Spring容器创建，同时对象属性也由Spring容器来设置
         <property name="name" value="张三"/>
     </bean>
    ```
+   
+   **如果参数是对象，那么使用ref代替value，ref的值是要引用对象的类名，且该类在容器中存在**
+   
 ### :sunny: 通过有参的构造方法来创建
 
    - **通过参数的下标来设置**
@@ -145,6 +150,8 @@ Hello对象由Spring容器创建，同时对象属性也由Spring容器来设置
        
        如果有多个参数则使用多个constructor-arg标签
        
+       如果参数是对象，那么使用ref代替value，ref的值是要引用对象的类名，且该类在容器中存在
+       
    - **通过参数名称来设置**
    
        User.java
@@ -173,6 +180,8 @@ Hello对象由Spring容器创建，同时对象属性也由Spring容器来设置
        ```
        
        name指参数名，如果有多个参数，则使用多个constructor-arg标签
+       
+       如果参数是对象，那么使用ref代替value，ref的值是要引用对象的类名，且该类在容器中存
        
    - **通过参数的类型**
    
@@ -209,6 +218,8 @@ Hello对象由Spring容器创建，同时对象属性也由Spring容器来设置
        ```
        
        如果多个参数的类型都相同，那么就按照constructor-arg标签的顺序来
+       
+       如果参数是对象，那么使用ref代替value，ref的值是要引用对象的类名，且该类在容器中存在
        
 ### :sunny: 通过工厂方法来创建
    - **静态工厂**
