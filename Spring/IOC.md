@@ -169,7 +169,7 @@ Hello对象由Spring容器创建，同时对象属性也由Spring容器来设置
        <bean id ="user" class="bean.User">
         <!--name指参数名-->
         <constructor-arg name="name" value="李四"></constructor-arg>
-    </bean>
+        </bean>
        ```
        
        name指参数名，如果有多个参数，则使用多个constructor-arg标签
@@ -178,11 +178,38 @@ Hello对象由Spring容器创建，同时对象属性也由Spring容器来设置
    
        User.java
        ```
-       
+       public class User {
+         public User(String address, String name) {
+             this.address = address;
+             this.name = name;
+         }
+
+         private  String address;
+         private String name;
+ 
+         public void setAddress(String address) {
+             this.address = address;
+         }
+ 
+         public void setName(String name){
+             this.name = name;
+         }
+         public void show(){
+             System.out.println("hello"+ name);
+         }
+       }
        ```
        beans.xml
        ```
+       <bean id ="user" class="bean.User">
+        <!--type指定参数类型-->
+        <constructor-arg type="java.lang.String" value="李四"></constructor-arg>
+        <constructor-arg type="java.lang.String" value="成都"></constructor-arg>
+        </bean>
        ```
+       
+       如果多个参数的类型都相同，那么就按照constructor-arg标签的顺序来
+       
 ### :sunny: 通过工厂类来创建
    - 静态工厂
    - 动态工厂
