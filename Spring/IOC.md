@@ -211,7 +211,7 @@ Hello对象由Spring容器创建，同时对象属性也由Spring容器来设置
        如果多个参数的类型都相同，那么就按照constructor-arg标签的顺序来
        
 ### :sunny: 通过工厂方法来创建
-   - 静态工厂
+   - **静态工厂**
    
         UserFactory.java
         ```
@@ -234,7 +234,7 @@ Hello对象由Spring容器创建，同时对象属性也由Spring容器来设置
         
         在bean标签中可以使用无参构造<property>标签，也可以使用三种有参构造<constructor-arg>标签
         
-   - 动态工厂
+   - **动态工厂**
         
         UserFactory.java
         ```
