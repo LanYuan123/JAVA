@@ -4,7 +4,8 @@
     注入：
       指bean对象依赖的资源由容器来设置和装配
       
-      
+----
+
 # Spring的两种注入方式
 
 
@@ -103,4 +104,46 @@
 </bean>
 ```
 
-### 8.
+### 8. properties注入
+
+```
+<bean id ="user" class="bean.User">
+		<property name="info">
+				<props>
+						<prop key="学号">2018110124</prop>
+						<prop key="姓名">ssjjsj</prop>
+						<prop key="年龄">19</prop>
+				</props>
+		</property>
+</bean>
+```
+
+### 9. P命名空间注入
+
+必须在头文件中加入
+```
+xmlns:p="http://www.springframework.org/schema/p"
+```
+
+beans.xml
+```
+<!-- p命名空间注入，要求有set方法-->
+<bean id ="user" class="vo.User" p:name="lanyuan" p:age="19">
+        
+</bean>
+```
+
+### 10. C命名空间注入
+
+必须在头文件中加入
+```
+xmlns:p="http://www.springframework.org/schema/c"
+```
+
+beans.xml
+```
+<!-- c命名空间注入，要求有相应参数的构造方法-->
+<bean id ="user" class="vo.User" c:name="lanyuan" c:age="16">
+
+</bean>
+```
