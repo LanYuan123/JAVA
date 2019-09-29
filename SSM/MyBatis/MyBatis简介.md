@@ -90,13 +90,18 @@
   创建一个类MyBatisUtil
   ```
   public class MyBatisUtil {
-      public static SqlSessionFactory getSqlSessionFactory() throws IOException {
-          String resource = "org/mybatis/example/mybatis-config.xml";
-          InputStream inputStream = Resources.getResourceAsStream(resource);
-          SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-          return sqlSessionFactory;
-      }
-  }
+			public static SqlSessionFactory getSqlSessionFactory() throws IOException {
+					String resource = "org/mybatis/example/mybatis-config.xml";
+					InputStream inputStream = Resources.getResourceAsStream(resource);
+					SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+					return sqlSessionFactory;
+			}
+
+			public static SqlSession getSession() throws IOException {
+					SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+					return sqlSessionFactory.openSession();
+			}
+	}
   ```
   
   4. **创建实体类**
@@ -138,11 +143,28 @@
   
   创建sql语句的映射文件
   ```
-  
+  <?xml version="1.0" encoding="UTF-8" ?>
+  <!DOCTYPE mapper
+          PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="entity.UserMapper">
+
+      <select id="selectUser" resultType="User">
+      select * from User where id = #{id}
+      </select>
+
+  </mapper>
   ```
   
   6. **测试**
   ```
-  
+  public class test {
+      public static void main(String[] args) throws IOException {
+          SqlSession session = MyBatisUtil.getSession();
+          User user = session.selectOne("UserMapper.selectUser","1");
+          System.out.println(user.getUsername());
+          session.close();
+      }
+  }
   ```
   
