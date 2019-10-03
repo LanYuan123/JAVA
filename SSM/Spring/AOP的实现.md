@@ -267,7 +267,6 @@ public class log{
 >
     <bean id="userService" class="service.UserServiceImpl"></bean>
     <bean id="log" class="Log.log"></bean>
-    <bean id="Afterlog" class="Log.Afterlog"></bean>
     <aop:config>
         <aop:aspect ref="log">
             <aop:pointcut id="pointcut" expression="execution(* service.UserServiceImpl.*(..))"/>
@@ -279,4 +278,47 @@ public class log{
 
 ## AOP的注解实现
 
+切点类log.java
+```
+@Aspect
+public class log{
+    @Before("execution(* service.UserServiceImpl.*(..))")
+    public void before(){
+        System.out.println("方法执行前!");
+    }
+    @After("execution(* service.UserServiceImpl.*(..))")
+    public void after(){
+        System.out.println("方法执行后!");
+    }
+    @Around("execution(* service.UserServiceImpl.*(..))")
+    public Object around(ProceedingJoinPoint joinPoint){
+        System.out.println("环绕前");
+        Object result = null;
+        try {
+            result = joinPoint.proceed();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        System.out.println("环绕后");
+        return result;
+    }
+}
+```
 
+配置文件beans.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+        "
+>
+    <bean id="userService" class="service.UserServiceImpl"></bean>
+    <bean id="log" class="Log.log"></bean>
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+</beans>
+```
