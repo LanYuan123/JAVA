@@ -186,6 +186,8 @@ ServletException ex|抛出的异常对象
 
 ### 4. 拦截式环绕通知
 
+**在切点方法执行前，环绕通知会优先于前置通知执行，在切点方法执行完后，环绕通知会后于后置通知执行**
+
 环绕通知需要实现MethodInterceptor接口，并且覆写invoke方法
 ```
 public interface MethodInterceptor extends Interceptor {
@@ -236,4 +238,45 @@ public interface IntroductionAdvisor extends Advisor, IntroductionInfo {
 
 ## AOP的自定义类实现
 
+使用自定义类实现不用实现接口，只需要在XML配置文件中进行配置就行了
+
+切点类log.java
+```
+public class log{
+    public void before(){
+        System.out.println("方法执行前!");
+    }
+
+    public void after(){
+        System.out.println("方法执行后!");
+    }
+}
+```
+
+配置文件beans.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+        "
+>
+    <bean id="userService" class="service.UserServiceImpl"></bean>
+    <bean id="log" class="Log.log"></bean>
+    <bean id="Afterlog" class="Log.Afterlog"></bean>
+    <aop:config>
+        <aop:aspect ref="log">
+            <aop:pointcut id="pointcut" expression="execution(* service.UserServiceImpl.*(..))"/>
+            <aop:before method="before" pointcut-ref="pointcut"></aop:before>
+            <aop:after method="after" pointcut-ref="pointcut"></aop:after>
+        </aop:aspect>
+    </aop:config>
+```
+
 ## AOP的注解实现
+
+
