@@ -14,7 +14,7 @@
 
   前置通知需要我们自定义一个类去实现BeforeAdvice接口，并且在实现了接口之后，覆写其中的before方法
   
-  前置通知将会在切点被调用之前被调用
+  前置通知将会在连接点被调用
   
   在前置通知类中的before方法中调用被织入了通知的方法时，该方法不会被拦截，在其他通知中也同理
   
@@ -22,6 +22,11 @@
   
   **前置通知类Log.java**
   ```
+  public interface MethodBeforeAdvice extends BeforeAdvice {
+
+      void before(Method m, Object[] args, Object target) throws Throwable;
+
+  }
   public class log implements MethodBeforeAdvice {
       @Override
       public void before(Method method, Object[] objects, Object o) throws Throwable {
@@ -120,6 +125,13 @@
 
 只是后置通知是实现AfterReturningAdvice接口，并且覆写afterReturning方法
 ```
+public interface AfterReturningAdvice extends Advice {
+
+    void afterReturning(Object returnValue, Method m, Object[] args,
+            Object target) throws Throwable;
+
+}
+
 public class Afterlog implements AfterReturningAdvice {
     @Override
     public void afterReturning(Object o, Method method, Object[] objects, Object o1) throws Throwable {
@@ -142,9 +154,84 @@ Object[] objects|方法参数
 
 ### 3. 异常通知
 
-### 4. 环绕通知
+如果一个RemoteException（包括子类）被抛出，异常通知就会被调用
+
+与前置通知大致相同,不过异常通知是实现ThrowsAdvice接口，并且覆写afterThrowing方法
+
+```
+public class RemoteThrowsAdvice implements ThrowsAdvice {
+
+    public void afterThrowing(Method m, Object[] args, Object target, ServletException ex) throws Throwable {
+        // Do something with remote exception
+    }
+
+}
+```
+
+**注意：**
+
+1. 在afterThrowing方法中有四个参数，只有最后一个参数ServletException ex是必要的，其他的三个参数可选，所以这个方法可能拥有一个或者四个参数
+
+2. 如果一个异常抛出增强本身抛出了一个异常，它将覆盖掉原始的异常（例如，改变抛给用户的异常），这个覆盖的异常通常是一个运行时异常；这样就可以兼容任何的方法签名。 但是，如果一个异常抛出增强抛出了一个检查时异常，这个异常必须和该目标方法的声明匹配，以此在一定程度上与特定的目标签名相结合。
+
+3. 不要抛出与目标方法签名不兼容的检查时异常！
+
+参数|含义
+|:--:|:--:
+Method m|被调用的方法对象
+Object[] args|方法参数
+Object target|调用方法的目标对象
+ServletException ex|抛出的异常对象
+
+
+### 4. 拦截式环绕通知
+
+环绕通知需要实现MethodInterceptor接口，并且覆写invoke方法
+```
+public interface MethodInterceptor extends Interceptor {
+
+    Object invoke(MethodInvocation invocation) throws Throwable;
+
+}
+
+public class DebugInterceptor implements MethodInterceptor {
+
+    public Object invoke(MethodInvocation invocation) throws Throwable {
+        System.out.println("Before: invocation=[" + invocation + "]");
+        Object rval = invocation.proceed();
+        System.out.println("Invocation returned");
+        return rval;
+    }
+
+}
+```
+
+invoke() 方法的MethodInvocation表示了将要被调用的方法、目标连接点、AOP代理、以及该方法的参数。 invoke() 方法应当返回调用结果：目标连接点的返回值。
+
+注意调用MethodInvocation对象的proceed()方法。这个方法将拦截器链路调向连接点。 大多数拦截器会调用该方法，并返回该方法的值。但是，就像任意环绕通知一样，一个方法拦截器也可以返回一个不同的值，或者抛出一个异常，而不是调用proceed()方法。 但是，没有足够的理由，不要这么干！
 
 ### 5. 引介通知
+
+Spring将引介通知当作一个特殊的拦截式通知。
+
+引介增强需要一个IntroductionAdvisor和一个IntroductionInterceptor实现以下接口：
+```
+public interface IntroductionInterceptor extends MethodInterceptor {
+
+    boolean implementsInterface(Class intf);
+
+}
+
+public interface IntroductionAdvisor extends Advisor, IntroductionInfo {
+
+    ClassFilter getClassFilter();
+
+    void validateInterfaces() throws IllegalArgumentException;
+
+}
+
+```
+
 
 
 ## AOP的自定义类实现
