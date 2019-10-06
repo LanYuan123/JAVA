@@ -10,6 +10,8 @@
 
 ## AOP的API实现
 
+AOP的实现需要多引入两个额外的jar包**aopalliance.jar**、**aspectjweaver-1.8.5.jar**，如果缺少的话，运行时会报错
+
 ### 1. 前置通知
 
   前置通知需要我们自定义一个类去实现BeforeAdvice接口，并且在实现了接口之后，覆写其中的before方法
