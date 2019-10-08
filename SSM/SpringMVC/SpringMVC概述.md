@@ -3,6 +3,7 @@
 1. [SpringMVC的概述](#springmvc的概述)
 2. [SpringMVC的优势](#springmvc的优势)
 3. [SpringMVC和Struts2的优劣分析](#springmvc和struts2的优劣分析)
+4. [SpringMVC的运行流程](#springmvc的运行流程)
 
 ## SpringMVC的概述
 
@@ -54,6 +55,6 @@ Spring已经成为目前最主流的MVC框架之一，并且随着Spring3.0的�
       4. Struts2的OGNL表达式使页面的开发效率比SpringMVC更高，但是执行效率没有比JSTL更高，
          尤其是Struts2的表单标签，远没有html执行效率高
 
+## SpringMVC的运行流程
 
-
-
+![SpringMVC的运行流程](https://github.com/Lany-Java/Java/blob/master/img/SpringMVC.png)
