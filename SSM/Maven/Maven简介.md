@@ -45,13 +45,13 @@
       
       动态Web工程-->编译、部署-->编译结果
       
-      ![web工程]()
+      ![web工程](https://github.com/Lany-Java/Java/blob/master/img/Web%E5%B7%A5%E7%A8%8B%E7%BC%96%E8%AF%91.png)
       
       开发过程中，所有路径或者配置文件中配置的类路径等都是以编译结果的目录结构为标准的。
       
       运行时环境
       
-      
+      ![RT](https://github.com/Lany-Java/Java/blob/master/img/rt.png)
       
  3. 构建过程中的各个环节
     1. 清理：将以前编译得到的旧的class字节码文件删除，为下一次编译做准备
@@ -156,7 +156,27 @@
          
          对我们自己开发的Maven工程，使用mvn install命令安装后就可以进入仓库
          
-    - 
+    - 依赖的范围
+    
+         ![依赖范围](https://github.com/Lany-Java/Java/blob/master/img/%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4.png)
+         
+         1. compile
+             - 对主程序是否有效：有效
+             - 对测试程序是否有效：有效
+             - 是否参与打包：参与
+         2. test
+             - 对主程序是否有效：无效
+             - 对测试程序是否有效：有效
+             - 是否参与打包：不参与
+         3. provided
+             - 对主程序是否有效：有效
+             - 对测试程序是否有效：有效
+             - 是否参与打包：不参与
+             - 是否参与部署：不参与
+             - 典型例子：servlet-api.jar
+             
+         ![compile](https://github.com/Lany-Java/Java/blob/master/img/%E4%BE%9D%E8%B5%96compile3.png)
+         ![provided](https://github.com/Lany-Java/Java/blob/master/img/%E4%BE%9D%E8%B5%96provided.png)
 
 5. **仓库**
 
@@ -172,6 +192,17 @@
             3. 我们自己开发的Maven工程
 
 6. **生命周期/插件/目标**
+
+    1. 各个构建环节执行的顺序：不能打乱顺序，必须按照既定的正确顺序来执行
+    2. Maven的核心程序中定义了抽象的生命周期，生命周期中各个阶段的具体任务是由插件来完成的
+    3. Maven的核心程序是为了更好的实现自动化构建，按照这样的特点执行生命周期中的各个阶段，不论现在要执行生命周期中的哪一个阶段，都是从这个生命周期最初的位置开始执行
+    4. 插件与目标
+         - 生命周期的各个阶段仅仅定义了要执行的任务是什么
+         - 各个阶段和插件的目标是对应的
+         - 相似的目标由特定的插件来完成
+         - 可以将目标看做"调用插件功能的命令"
+    
+
 7. **继承**
 8. **聚合**
 
