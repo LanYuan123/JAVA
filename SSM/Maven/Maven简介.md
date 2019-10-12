@@ -152,11 +152,11 @@
 
 4. **依赖**
 
-    - Maven解析依赖信息时会到本地仓库中查找依赖的jar包
+    - **Maven解析依赖信息时会到本地仓库中查找依赖的jar包**
          
          对我们自己开发的Maven工程，使用mvn install命令安装后就可以进入仓库
          
-    - 依赖的范围
+    - **依赖的范围**
     
          ![依赖范围](https://github.com/Lany-Java/Java/blob/master/img/%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4.png)
          
@@ -177,6 +177,58 @@
              
          ![compile](https://github.com/Lany-Java/Java/blob/master/img/%E4%BE%9D%E8%B5%96compile3.png)
          ![provided](https://github.com/Lany-Java/Java/blob/master/img/%E4%BE%9D%E8%B5%96provided.png)
+         
+     - **依赖的传递**
+     
+         依赖之间是有传递性的
+         
+         1. 好处：可以传递的依赖不必在每个模块工程中都重复声明，在"最下面"的工程中依赖一次即可
+         2. 注意：非compile范围的依赖不能传递，所以在各个工程模块中，如果有需要就得重复声明依赖
+     
+     - **依赖的排除**
+     
+         有时候我们有一些jar包不希望加入到当前工程，这时候我们就需要把一些依赖排除掉
+         
+         排除依赖的设置方式：
+         
+         ```
+         <exclusions>
+             <exclusion>
+                 <groupId>commons-logging</groupId>
+                 <artifactId>commons-logging-api</artifactId>
+             </exclusion>
+         </exclusions>
+         ```
+     
+     - **依赖的原则**
+     
+         作用：解决工程之间jar包的冲突问题
+         
+         情景设定1：验证路径最短者优先
+         
+         情景设定2：验证路径相同时，先声明者优先(先声明指的是dependency标签的声明顺序)
+         
+     
+     - **依赖版本号的统一管理**
+     
+       假如jar包的版本都是4.0.0，这时我们想同时统一升级为4.1.1，怎么办？手动逐一修改，容易出错，且不可靠
+     
+       建议配置方式
+     
+          1. 先使用properties标签内使用自定义标签统一声明版本号
+          
+          ```
+          <properties>
+              <spring-version>4.0.0</spring-version>
+          </properties>
+          ```
+          
+          2. 然后在需要统一声明版本的位置，使用${自定义标签名}引用声明的版本号
+          
+          ```
+          <version>${spring-version}</version>
+          ```
+     
 
 5. **仓库**
 
@@ -204,8 +256,24 @@
     
 
 7. **继承**
+
+   需求：统一管理各个模块工程中对(例如)Junit依赖的版本
+   
+   解决思路：将junit遗爱统一提取到"父"工程中，在子工程中声明junit依赖时不指定版本，以父工程中统一设定的为准，同时也便于修改
+   
+   操作步骤
+       1. 创建一个Maven工程作为父工程，注意：打包的方式pom
+       2. 在子工程中声明对父工程的引用
+       3. 将子工程的坐标与父工程坐标中重复的内容删除
+       4. 在父工程中统一junit的依赖
+       5. 在子工程中删除junit依赖的版本号部分
+
 8. **聚合**
 
-## Maven
+   作用：一键安装各个模块工程
+   
+   配置方式：在一个"总的聚合工程"中配置各个参与聚合的模块
+   
+   使用方式：在聚合工程的pom.xml上点右键->run as->maven install
  
  
