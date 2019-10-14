@@ -136,6 +136,7 @@
 ```
 
 DIspatcherServlet的三个初始化参数
+
 参数|描述
 |:--:|:--:
 contextClass|实现WebApplicationContext接口的类，当前的servlet用它来创建上下文，如果这个参数没有指定，默认使用XmlWebApplicationContext
