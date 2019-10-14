@@ -40,131 +40,131 @@
 
   1. **导入MyBatis相关的jar包**
   
-  lib包
-  ```
-  ant-1.10.3.jar
-  ant-launcher-1.10.3.jar
-  asm-7.0.jar
-  cglib-3.2.10.jar
-  commons-logging-1.2.jar
-  javassist-3.24.1-GA.jar
-  log4j-1.2.17.jar
-  log4j-api-2.11.2.jar
-  log4j-core-2.11.2.jar
-  mybatis-3.5.1.jar
-  ognl-3.2.10.jar
-  slf4j-api-1.7.26.jar
-  slf4j-log4j12-1.7.26.jar
-  ```
+	  lib包
+	  ```
+	  ant-1.10.3.jar
+	  ant-launcher-1.10.3.jar
+	  asm-7.0.jar
+	  cglib-3.2.10.jar
+	  commons-logging-1.2.jar
+	  javassist-3.24.1-GA.jar
+	  log4j-1.2.17.jar
+	  log4j-api-2.11.2.jar
+	  log4j-core-2.11.2.jar
+	  mybatis-3.5.1.jar
+	  ognl-3.2.10.jar
+	  slf4j-api-1.7.26.jar
+	  slf4j-log4j12-1.7.26.jar
+	  ```
   
   2. **编写MyBatis核心配置文件**
   
-  建立mybatis.config.xml文件
-  ```
-  <?xml version="1.0" encoding="UTF-8" ?>
-  <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-config.dtd">
-  <configuration>
-    <typeAliases>
-      <typeAlias alias="User" type="com.yihaomen.mybatis.model.User"/>
-    </typeAliases>
-    <environments default="development">
-      <environment id="development">
-        <transactionManager type="JDBC"/>
-        <dataSource type="POOLED">
-          <property name="driver" value="com.mysql.jdbc.Driver"/>
-          <property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis" />
-          <property name="username" value="root"/>
-          <property name="password" value="password"/>
-        </dataSource>
-      </environment>
-    </environments>
-    <mappers>
-      <mapper resource="com/yihaomen/mybatis/model/User.xml"/>
-    </mappers>
-  </configuration>
-  ```
+	  建立mybatis.config.xml文件
+	  ```
+	  <?xml version="1.0" encoding="UTF-8" ?>
+	  <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+	  <configuration>
+	    <typeAliases>
+	      <typeAlias alias="User" type="com.yihaomen.mybatis.model.User"/>
+	    </typeAliases>
+	    <environments default="development">
+	      <environment id="development">
+		<transactionManager type="JDBC"/>
+		<dataSource type="POOLED">
+		  <property name="driver" value="com.mysql.jdbc.Driver"/>
+		  <property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis" />
+		  <property name="username" value="root"/>
+		  <property name="password" value="password"/>
+		</dataSource>
+	      </environment>
+	    </environments>
+	    <mappers>
+	      <mapper resource="com/yihaomen/mybatis/model/User.xml"/>
+	    </mappers>
+	  </configuration>
+	  ```
   
   3. **创建SqlSessionFactory，以及获得SqlSession**
   
-  创建一个类MyBatisUtil
-  ```
-  public class MyBatisUtil {
-			public static SqlSessionFactory getSqlSessionFactory() throws IOException {
-					String resource = "org/mybatis/example/mybatis-config.xml";
-					InputStream inputStream = Resources.getResourceAsStream(resource);
-					SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-					return sqlSessionFactory;
-			}
+	  创建一个类MyBatisUtil
+	  ```
+	  public class MyBatisUtil {
+		public static SqlSessionFactory getSqlSessionFactory() throws IOException {
+				String resource = "org/mybatis/example/mybatis-config.xml";
+				InputStream inputStream = Resources.getResourceAsStream(resource);
+				SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+				return sqlSessionFactory;
+		}
 
-			public static SqlSession getSession() throws IOException {
-					SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-					return sqlSessionFactory.openSession();
-			}
-	}
-  ```
+		public static SqlSession getSession() throws IOException {
+				SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+				return sqlSessionFactory.openSession();
+		}
+	  }
+	  ```
   
   4. **创建实体类**
   
-  创建实体类User
-  ```
-  public class User {
-      private int id;
-      private String name;
-      private String pwd;
+	  创建实体类User
+	  ```
+	  public class User {
+	      private int id;
+	      private String name;
+	      private String pwd;
 
-      public int getId() {
-          return id;
-      }
+	      public int getId() {
+		  return id;
+	      }
 
-      public void setId(int id) {
-          this.id = id;
-      }
+	      public void setId(int id) {
+		  this.id = id;
+	      }
 
-      public String getName() {
-          return name;
-      }
+	      public String getName() {
+		  return name;
+	      }
 
-      public void setName(String name) {
-          this.name = name;
-      }
+	      public void setName(String name) {
+		  this.name = name;
+	      }
 
-      public String getPwd() {
-          return pwd;
-      }
+	      public String getPwd() {
+		  return pwd;
+	      }
 
-      public void setPwd(String pwd) {
-          this.pwd = pwd;
-      }
-  }
-  ```
+	      public void setPwd(String pwd) {
+		  this.pwd = pwd;
+	      }
+	  }
+	  ```
   
   5. **编写sql语句的映射文件**
   
-  创建sql语句的映射文件
-  ```
-  <?xml version="1.0" encoding="UTF-8" ?>
-  <!DOCTYPE mapper
-          PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="entity.UserMapper">
+  	  创建sql语句的映射文件user-mapper.xml
+	  ```
+	  <?xml version="1.0" encoding="UTF-8" ?>
+	  <!DOCTYPE mapper
+		  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	  <mapper namespace="entity.UserMapper">
 
-      <select id="selectUser" resultType="User">
-      select * from User where id = #{id}
-      </select>
+	      <select id="selectUser" resultType="User">
+	      select * from User where id = #{id}
+	      </select>
 
-  </mapper>
-  ```
+	  </mapper>
+	  ```
   
   6. **测试**
-  ```
-  public class test {
-      public static void main(String[] args) throws IOException {
-          SqlSession session = MyBatisUtil.getSession();
-          User user = session.selectOne("UserMapper.selectUser","1");
-          System.out.println(user.getUsername());
-          session.close();
-      }
-  }
-  ```
+	  ```
+	  public class test {
+	      public static void main(String[] args) throws IOException {
+		  SqlSession session = MyBatisUtil.getSession();
+		  User user = session.selectOne("UserMapper.selectUser","1");
+		  System.out.println(user.getUsername());
+		  session.close();
+	      }
+	  }
+	  ```
   
