@@ -65,9 +65,6 @@
 	  <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 	  <configuration>
-	    <typeAliases>
-	      <typeAlias alias="User" type="com.yihaomen.mybatis.model.User"/>
-	    </typeAliases>
 	    <environments default="development">
 	      <environment id="development">
 		<transactionManager type="JDBC"/>
