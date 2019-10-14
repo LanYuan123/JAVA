@@ -149,7 +149,7 @@
 		  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	  <mapper namespace="entity.UserMapper">
 
-	      <select id="selectUser" resultType="User">
+	      <select id="selectUser" resultType="entity.User">
 	      select * from User where id = #{id}
 	      </select>
 
