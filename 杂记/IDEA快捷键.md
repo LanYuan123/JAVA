@@ -9,6 +9,7 @@ Alt + Insert|快速创建构造函数
 Alt + F4|关闭IDEA
 Alt + Insert|快捷键覆写方法
 Alt + 1|选中单词，快速查看单词的意思，需要下载插件Translation
+Ctrl + Alt + L|快速格式化代码
 
 ## IDEA插件
 
