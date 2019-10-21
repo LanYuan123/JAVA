@@ -115,6 +115,88 @@ JDBC中主要是5大对象：
 
     概念：其实就是一个容器(集合)，存放数据库连接的容器
     
-  好处：</br>
+  1. 好处：</br>
     1. 节约资源
     2. 用户访问高效
+    
+  2. 实现：</br>
+    1. 标准接口：DataSource  javax.sql包下的
+        1. 方法：
+            - C3P0：数据库连接池技术
+            - Druid：数据库连接池实现技术，由阿里巴巴提供的，基本上是世界上最好的连接池技术
+            
+  3. C3P0：数据库的实现技术
+        - 步骤：
+            1. 导入jar包（两个），c3p0-0.9.5.2.jar 还有 mchange-commons-java-0.2.12.jar，不要忘记导入数据库的驱动jar包
+            2. 定义配置文件
+                - 名称：c3p0.properties 或者 c3p0-config.xml
+                ```
+                <c3p0-config>
+                    <!--使用默认的配置读取连接池对象-->
+                    <default-conjfig>
+                        <proporty name="driverClass">com.mysql.jdbc.Driver</proporty>
+                        <proporty name="jdbcUrl">jdbc://localhost:3306/db4</proporty>
+                        <proporty name="user">root</proporty>
+                        <proporty name="password">root</proporty>
+                        <!--初始化申请的连接数量-->
+                        <proporty name="initialPoolSize">5</proporty>
+                        <!--最大的连接数量-->
+                        <proporty name="maxPoolSize">10</proporty>
+                        <!--超时时间-->
+                        <proporty name="checkoutTimeout">3000</proporty>
+                    </default-conjfig>
+
+                    <name-config name="otherc3p0">
+                        <proporty name="driverClass">com.mysql.jdbc.Driver</proporty>
+                        <proporty name="jdbcUrl">jdbc://localhost:3306/db5</proporty>
+                        <proporty name="user">root</proporty>
+                        <proporty name="password">root</proporty>
+                        <!--初始化申请的连接数量-->
+                        <proporty name="initialPoolSize">5</proporty>
+                        <!--最大的连接数量-->
+                        <proporty name="maxPoolSize">8</proporty>
+                        <!--超时时间-->
+                        <proporty name="checkoutTimeout">1000</proporty>
+                    </name-config>
+                </c3p0-config>
+                ```
+                - 路径：直接将文件放在src目录下即可
+            3. 创建核心对象 数据库连接池对象 ComboPooledDataSource
+            4. 获取连接：connection.getConnection()
+            5. 归还连接对象：connnection.close()
+             
+  4. Druid：数据库连接池技术  
+     - 步骤
+        1. 导入jar包 druid-1.0.9,jar
+        2. 定义与加载配置文件
+            - 是properties形式的
+            - 可以叫任意名称 ，可以放在任意目录下
+            druid.properties
+            ```
+            driverClassName=com.mysql.jdbc.Driver
+            url=jdbc:mysql://127.0.0.1:3306/db3
+            username=root
+            passsword=root
+            initialSize=5
+            maxActive=10
+            maxWait=3000
+            ```
+            
+            加载配置文件
+            ```
+            Properties properties = new Properties();
+            InputStream is = DruidDemo(本类的类名).class.getClassLoader().getResourceAsStream("druid.properties");
+            properties.load(is);
+            ```
+            
+        3. 获取连接池对象
+        
+            ```
+            DataSource datasource = DruidDataSourceFactory.createDataSource(properties);
+            ```
+            
+        4. 获取连接
+            
+            ```
+            Connection connection = datasource.getConnection();
+            ```
