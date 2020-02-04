@@ -30,15 +30,28 @@ SpringMVC在项目中负责接收拦截用户请求，**它的核心Servlet即Di
 SpringMVC的处理请求流程是通过大量的组件来处理的
 
 组件：</br>
-1. 前端控制器（DispatcherServlet）
-2. 处理器映射器（HandlerMapping）
-3. 处理器适配器（HandlerAdapter）
-4. 处理器（Hander）
-5. 视图解析器（View Resolver）
-6. 视图（View）
+1. **前端控制器（DispatcherServlet）**：接收用户的请求，然后给用户反馈结果，相当于一个转发器或者中研处理器，控制整个流程的执行，对各个组件进行
+统一调度，降低组件之间的耦合性，利于组件之间的拓展
+2. **处理器映射器（HandlerMapping）**：根据请求的URL路径，通过注解或者XML配置，寻找匹配的处理器信息
+3. **处理器适配器（HandlerAdapter）**：根据映射器找到的处理器信息，按照特定规则执行相关得到处理器
+4. **处理器（Hander）**：其作用是执行相关的请求处理逻辑，并且返回相应的数据和视图信息，将其封装至ModelAdnView对象中
+5. **视图解析器（View Resolver）**：进行解析操作，通过ModelAndView对象中的View信息将逻辑视图名解析成真正的视图View（如通过一个JSP路径返回一个JSP页面）
+6. **视图（View）**：本身是一个接口，实现类支持不同的View类型（JSP、FreeMaker、Excecl等）
 
 ![SpringMVC处理请求流程](https://github.com/Lany-Java/StudyNotes/blob/master/SSM/SSM%E6%95%B4%E5%90%88/img/SpringMVC%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B.png)
 
+请求流程如下：</br>
+1. 用户单击某个请求路径，发起一个request请求，此请求会被前端控制器DispatcherServlet处理
+2. 前端控制器DispatcherServlet请求 处理器映射器HandlerMapping，去查找Handler。可以依据注解或者XML配置去找
+3. 处理器映射器根据配置找到相应的Handler（可能包含若干个拦截器），返回给前端控制器（DispatcherServlet）
+4. 前端控制器（DispatcherServlet）请求处理器适配器（HandlerAdapter）去执行相应的Handler（常被称作Controller）
+5. 处理器适配器（HandlerAdapter）执行相应的Handler
+6. Handler执行完毕后会返回处理器适配器（HandlerAdapter）一个ModelAndView对象（SpringMVC底层对象，包括Model数据模型和View视图信息）
+7. 处理器适配器（HandlerAdapter）接收到ModelAndView后，将其返回给前端控制器DispatcherServlet
+8. 前端控制器（DispatcherServlet）接收到ModelAndView对象后，会请求视图解析器（ViewResolver）对视图进行解析
+9. 视图解析器（ViewResolver）根据View信息匹配到相应的视图结果，反馈给前端控制器（ViewResolver）
+10. 前端控制器（DispatcherServlet）收到View的具体视图后，进行视图渲染，将Model中的数据模型填充到View视图中的request域，生成最终视图
+11. 前端控制器（DispatcherServlet）返回请求结果
 
 ----
 
