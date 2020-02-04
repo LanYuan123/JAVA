@@ -5,16 +5,47 @@
 Spring就像是整个项目中装配bean的大工厂，在配置文件中配置好参数，通过调用类的构造方法来实例化对象。</br>
 Spring的核心思想是IOC（控制反转），这使得程序员不用在显式的new一个对象，而是让Spring框架帮你来完成这一切，我们只需要从Spring中获取该对象即可
 
+### Spring之IOC
+
+### Spring之AOP
+
 ----
 
 ## SpringMVC
 
-SpringMVC在项目中负责接收拦截用户请求，它的核心Servlet即DispatcherServlet是一个中转站，将用户请求通过HandlerMapping分发到Controllr的各个方法上，
-Controller的各个方法对应各个请求需要执行的操作
+SpringMVC在项目中负责接收拦截用户请求，**它的核心Servlet即DispatcherServlet是一个中转站，将用户请求通过HandlerMapping分发到Controllr的各个方法上**，所以**SpringMVC是基于方法进行开发的一种框架**，Controller的各个方法对应各个请求需要执行的操作
+
+### SpringMVC的优点
+
+1. **SpringMVC本身是与Spring框架结合而成的**，它同时拥有Spring的优点(例如控制反转(IOC)和切面编程(AOP)等)
+2. SpringMVC提供了强大的**约定大于配置的契约式编程支持**，即提供一种软件设计范式，减少软件开发人员做决定的次数，开发人员仅需规定应用中不符合约定的部分
+3. 支持**灵活的URL带页面控制器的映射**
+4. 可以方便于其他视图技术（比如FreeMaker等）进行整合。由于SpringMVC的模型数据往往是放置在Map数据结构中，因此其可以很方便的被其他框架引用
+5. 拥有十分**简洁的异常处理机制**
+6. 可以十分灵活的**实现数据验证、格式化和数据绑定机制**，可以使用任意对象进行数据绑定操作
+7. **支持RESTful风格**
+
+### SpringMVC处理请求流程
+
+SpringMVC的处理请求流程是通过大量的组件来处理的
+
+组件：</br>
+1. 前端控制器（DispatcherServlet）
+2. 处理器映射器（HandlerMapping）
+3. 处理器适配器（HandlerAdapter）
+4. 处理器（Hander）
+5. 视图解析器（View Resolver）
+6. 视图（View）
+
+![SpringMVC处理请求流程](https://github.com/Lany-Java/StudyNotes/blob/master/SSM/SSM%E6%95%B4%E5%90%88/img/SpringMVC%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B.png)
+
 
 ----
 
 ## Mybatis
+
+Mybatis是对对象的封装，它让数据库底层操作变得透明，Mybatis得的操作都是围绕一个sqlSessionFactory对象展开的，Mybatis通过配置文件关联到各实体类的
+Mapper文件，Mapper文件中配置了每个类对数据库所需进行的sql语句映射。在每次和数据库交互时，通过sqlSessionFactory拿到一个sqlSession，在执行sql命令。
 
 ### 传统开发模式的缺陷
 
@@ -40,11 +71,6 @@ SQL语句预编译，得到预编译对象后，在传入参数，并执行SQL�
 2. 数据库的频繁连接与断开
 3. 查询结果集取数据的硬编码
 
-### 关于Mybatis
-
-Mybatis是对对象的封装，它让数据库底层操作变得透明，Mybatis得的操作都是围绕一个sqlSessionFactory对象展开的，Mybatis通过配置文件关联到各实体类的
-Mapper文件，Mapper文件中配置了每个类对数据库所需进行的sql语句映射。在每次和数据库交互时，通过sqlSessionFactory拿到一个sqlSession，在执行sql命令。
-
 #### 对传统开发模式问题的解决
 
 1. Mybatis可以将SQL语句配置在XML文件中，这就避免了JDBC在Java类中添加SQL语句的硬编码问题
@@ -55,6 +81,8 @@ Mapper文件，Mapper文件中配置了每个类对数据库所需进行的sql�
 ### Mybatis运行流程
 
 Mybatis的整个运行流程，是紧紧围绕着数据库连接词配置文件SqlMapConfig.xml，以及SQL映射配置文件Mapper.xml而展开的。
+
+![Mybatis的执行流程](https://github.com/Lany-Java/StudyNotes/blob/master/SSM/SSM%E6%95%B4%E5%90%88/img/Mybatis%E7%9A%84%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.png)
 
 1. 首先SqlSessionFactory会话工厂通过Resources资源信息加载对象获取SqlMapConfig.xml配置文件的信息
 2. 然后产生可以与数据库进行交互的会话实例类SqlSession
