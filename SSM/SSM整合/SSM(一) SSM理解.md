@@ -1,3 +1,20 @@
+**目录**
+- [SSM框架整合的理解](#ssm框架整合的理解)
+  * [Spring](#spring)
+    + [Spring之IOC](#spring之ioc)
+    + [Spring之AOP](#spring之aop)
+  * [SpringMVC](#springmvc)
+    + [SpringMVC的优点](#springmvc的优点)
+    + [SpringMVC处理请求流程](#springmvc处理请求流程)
+  * [Mybatis](#mybatis)
+    + [传统开发模式的缺陷](#传统开发模式的缺陷)
+      - [JDBC连接数据库模式分析](#jdbc连接数据库模式分析)
+      - [JDBC操作SQL语句模式分析](#jdbc操作sql语句模式分析)
+      - [待优化的问题](#待优化的问题)
+      - [对传统开发模式问题的解决](#对传统开发模式问题的解决)
+    + [Mybatis运行流程](#mybatis运行流程)
+
+
 # SSM框架整合的理解
 
 ## Spring
@@ -105,5 +122,5 @@ Mybatis的整个运行流程，是紧紧围绕着数据库连接词配置文件S
 6. 通过执行器Executor与底层封装对象Mappered Statement的结合，Mybatis就实现了与数据库进行交互的功能
 
 
-参考文章链接：[https://www.jianshu.com/p/fcb69c6e2bf3](https://www.jianshu.com/p/fcb69c6e2bf3)</br>
-参考书目：SpringMVC + Mybatis开发从入门到项目实战 朱要光编著
+> 参考文章链接：[https://www.jianshu.com/p/fcb69c6e2bf3](https://www.jianshu.com/p/fcb69c6e2bf3)</br>
+> 参考书目：SpringMVC + Mybatis开发从入门到项目实战 朱要光编著
