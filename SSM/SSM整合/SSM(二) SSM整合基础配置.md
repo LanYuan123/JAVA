@@ -1,3 +1,28 @@
+**目录**
+- [SSM整合配置](#ssm整合配置)
+  * [整合思路](#整合思路)
+  * [4个配置文件的配置](#4个配置文件的配置)
+    + [applicationContext.xml（Spring的配置文件）](#applicationcontextxmlspring的配置文件)
+      - [context:property-placeholder location=""](#contextpropertyplaceholder-location)
+      - [context:component-scan base-package=""](#contextcomponentscan-basepackage)
+      - [context:annotation-config](#contextannotationconfig)
+      - [bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource"](#bean-iddatasource-classcomalibabadruidpooldruiddatasource)
+      - [bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"](#bean-idsqlsessionfactory-classorgmybatisspringsqlsessionfactorybean)
+      - [bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"](#bean-idsqlsessiontemplate-classorgmybatisspringsqlsessiontemplate)
+    + [springmvc.xml（SpringMVC的配置文件）](#springmvcxmlspringmvc的配置文件)
+      - [mvc:annotation-driven](#mvcannotationdriven)
+      - [bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"](#bean-idmultipartresolver-classorgspringframeworkwebmultipartcommonscommonsmultipartresolver)
+    + [SqlMapConfig.xml（Mybatis的配置文件）](#sqlmapconfigxmlmybatis的配置文件)
+      - [settings](#settings)
+      - [typeAliases](#typealiases)
+      - [mappers](#mappers)
+    + [web.xml](#webxml)
+      - [context-param](#context-param)
+      - [listener](#listener)
+      - [filter](#filter)
+      - [servlet](#servlet)
+
+
 # SSM整合配置
 
 ## 整合思路
@@ -75,13 +100,13 @@ SpringMVC整合Spring，Controller层交给SpringMVC来管理
 
 配置说明：</br>
 
-#### < context:property-placeholder location="" />  
+#### context:property-placeholder location=""
 
 ```
 引入外部properties配置文件，可以通过${}取值
 ```
 
-#### < context:component-scan base-package=""/ > 
+#### context:component-scan base-package=""
 
 ```
 spring会去自动扫描base-package对应的路径或者该路径的子包下面的java文件，
@@ -89,7 +114,7 @@ spring会去自动扫描base-package对应的路径或者该路径的子包下�
 如果配置了<context:component-scan>那么<context:annotation-config/>标签就可以不用在xml中再配置了，因为前者包含了后者
 ```
 
-#### < context:annotation-config/ >
+#### context:annotation-config
 
 ```
 开启该配置，隐式的向Spring容器中注册了AutowiredAnnotationBeanPostProcessor,
@@ -99,7 +124,7 @@ RequiredAnnotationBeanPostProcessor这4个BeanPostProcessor,
 比如AutowiredAnnotationBeanPostProcessor就是识别@AutoWired
 ```
 
-#### < bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource"/>
+#### bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource"
 
 ```
 该类是数据库datasource数据源的配置
@@ -108,7 +133,7 @@ RequiredAnnotationBeanPostProcessor这4个BeanPostProcessor,
 还有一些选择项，看情况配置
 ```
 
-#### < bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"/>
+#### bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
 
 ```
 本来是Mybatis的获取sqlSession的工厂类，现在交给Spring管理
@@ -116,7 +141,7 @@ RequiredAnnotationBeanPostProcessor这4个BeanPostProcessor,
 该类需要注入数据源的类和配置文件位置
 ```
 
-#### < bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"/>
+#### bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
 
 ```
 需要以sqlSessionFactory作为构造方法参数来创建sqlSessionTemplate对象
@@ -160,13 +185,13 @@ RequiredAnnotationBeanPostProcessor这4个BeanPostProcessor,
 
 配置说明：</br>
 
-#### < mvc:annotation-driven/ >
+#### mvc:annotation-driven
 
 ```
 简单来说这个配置可以让我们在Controller层中使用的各种注解生效起作用
 ```
 
-#### < bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+#### bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 
 ```
 文件上传需要的类，可以通过注入多个参数，来确定文件编码格式，最大上传文件大小等
@@ -200,19 +225,19 @@ RequiredAnnotationBeanPostProcessor这4个BeanPostProcessor,
 </configuration>
 ```
 
-#### < settings/ >
+#### settings
 
 ```
 一些全局配置，比如配置缓存、延迟加载、结果集控制、分页设置等，都在这里配置
 ```
 
-#### < typeAliases/ >
+#### typeAliases
 
 ```
 别名配置
 ```
 
-#### < mappers/ >
+#### mappers
 
 ```
 指明Mapper配置文件的位置，如果使用注解则不需要此项配置
@@ -275,26 +300,26 @@ RequiredAnnotationBeanPostProcessor这4个BeanPostProcessor,
 
 配置说明：</br>
 
-#### < context-param/ >
+#### context-param
 
 ```
 指明Spring配置文件的位置，在Web启动的时候，供其加载
 ```
 
-#### < listener >< listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>< /listener >
+#### listener
 
 ```
 在Spring的整合项目中一般都要加入
 就是上面这段配置为项目提供了spring支持，初始化了Ioc容器
 ```
 
-#### < filter/ >
+#### filter
 
 ```
 使得SpringMVC可以接收PUT和DELETE请求
 ```
 
-#### < servlet/ >
+#### servlet
 
 ```
 配置SpringMVC最核心的dispatcherServlet，作为转发站和中央处理器
