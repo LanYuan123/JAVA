@@ -291,12 +291,26 @@ public class Car {
 ### @Autowired
 
 作用：**可以为类的属性，构造器，方法注值**
+
+装配策略：**先进行byType匹配，如果有多个同类型bean，再根据byName匹配，如果byName也无法确定，那么通过主和优先级（Primary和Priority）来确定**
+
+- @Autowired默认按照类型装配，如果容器中包含多个同一类型的Bean，那么启动容器时会找不到指定类型的异常（可以结合@Qualified注解进行bean限定，指定注入bean的名称）
+- 如果容器中包含多个同一类型的bean，那么接下来根据注入参数的Name，来进行匹配
+  - 如果Name匹配，则成功
+  - 如果Name不匹配，那么按主和优先级判断，看是否有Bean包含@Primary注解
+    - 包含@Primary，则注入此Bean
+    - 不包含，看是否有@Priority注解
+      - 如果有，根据@Priority注解中value的大小，按优先级，数字越小的越优先匹配
+      - 如果没有，匹配失败
 - 默认情况下，注入的对象必须存在（bean可用），如果需要改变这种默认方式，可以设置其required属性为false
-- @Autowired默认按照类型装配，如果容器中包含多个同一类型的Bean，那么启动容器时会找不到指定类型的异常，解决办法时结合@Qualified注解进行bean限定，指定注入bean的名称
+
 
 ### @Resource
 
 作用：**也是和@Autowired相似的依赖注入**
+
+装配策略：**先进行byName匹配，如果name属性为空，然后进行byType匹配**
+
 - 在启动Spring容器时，会默认寻找容器扫描范围内的可加载bean，然后查找哪些bean上的属性和方法上有@Resource注解
 - 找到@Resourse注解后，判断@Resource注解括号中name属性是否为空
 - 如果name为空，看Spring容器中的bean的id与@Resource要注解的那个变量属性名是否相同
@@ -308,12 +322,20 @@ public class Car {
   - 如果相等，匹配成功
   - 如果不相等，匹配失败
 
-
-### @Inject
-
-
 ### @Autowired和@Resource的区别
 
+
+
+### @Primary
+
+作用：**此注解标记的bean在多选择的情况下，会优先注入**
+
+- 如果在@Autowired自动装配的时候，有两个符合条件的bean，则有@Primary标注的bean被注入
+
+### @Priority
+
+作用：**配置bean的优先级**
+- 如果在@Autowired自动装配的时候，有两个符合条件的bean，又没有@Primary，则按@Priority标注的优先级大小进行优先匹配，数字越小，越优先匹配
 
 > 参考文章 [spring 常用注解](http://www.voidcn.com/article/p-vnuuxhnq-bcq.html)</br>
 > 参考文章 [Spring @Bean注解使用](https://juejin.im/entry/597834286fb9a06bad65749f)</br>
@@ -321,3 +343,4 @@ public class Car {
 > 参考文章 [精进Spring—Spring常用注解【经典总结】](https://blog.csdn.net/u010648555/article/details/76299467)</br>
 > 参考文章 [Spring常用注解介绍](https://zhuanlan.zhihu.com/p/43235193)</br>
 > 参考文章 [@Resource注解用法](https://blog.csdn.net/u010502101/article/details/78950045)</br>
+> 参考文章 [彻底搞明白Spring中的自动装配和Autowired](https://juejin.im/post/5c84b5285188257c5b477177)</br>
