@@ -1,3 +1,24 @@
+**目录：**
+- [Spring与Bean注入和装配相关的注解详解](#spring与bean注入和装配相关的注解详解)
+  * [bean的注入](#bean的注入)
+    + [@Component](#component)
+    + [@Repository](#repository)
+    + [@Service](#service)
+    + [@Controller](#controller)
+    + [@Configuration](#configuration)
+    + [@Bean](#bean)
+    + [@Bean和@Component](#bean和component)
+    + [@ComponentScan](#componentscan)
+    + [@Qualifier](#qualifier)
+    + [@Scope](#scope)
+  * [bean的装配](#bean的装配)
+    + [@Autowired](#autowired)
+    + [@Resource](#resource)
+    + [@Autowired和@Resource](#autowired和resource)
+    + [@Primary](#primary)
+    + [@Priority](#priority)
+
+
 # Spring与Bean注入和装配相关的注解详解
 
 ## bean的注入
@@ -322,9 +343,14 @@ public class Car {
   - 如果相等，匹配成功
   - 如果不相等，匹配失败
 
-### @Autowired和@Resource的区别
+### @Autowired和@Resource
 
+同：
+- @Autowired与@Resource都可以用来装配bean. 都可以写在字段上,或写在setter方法上
 
+异：
+- @Autowired默认按类型装配，@Resource默认按照名称进行装配
+- @Autowired是Spring提供的，@Resource是JDK提供的
 
 ### @Primary
 
