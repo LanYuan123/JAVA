@@ -290,8 +290,23 @@ public class Car {
 
 ### @Autowired
 
+作用：**可以为类的属性，构造器，方法注值**
+- 默认情况下，注入的对象必须存在（bean可用），如果需要改变这种默认方式，可以设置其required属性为false
+- @Autowired默认按照类型装配，如果容器中包含多个同一类型的Bean，那么启动容器时会找不到指定类型的异常，解决办法时结合@Qualified注解进行bean限定，指定注入bean的名称
 
 ### @Resource
+
+作用：**也是和@Autowired相似的依赖注入**
+- 在启动Spring容器时，会默认寻找容器扫描范围内的可加载bean，然后查找哪些bean上的属性和方法上有@Resource注解
+- 找到@Resourse注解后，判断@Resource注解括号中name属性是否为空
+- 如果name为空，看Spring容器中的bean的id与@Resource要注解的那个变量属性名是否相同
+  - 如果相同，则匹配成功
+  - 如果不相同，看Spring容器中bean的id对应的类型是否与@Resource要注解的变量属性对应的类型相等
+    - 如果相等，匹配成功
+    - 如果不相等，匹配失败
+- 如果name不为空，看name的属性值和容器中的bean的id名是否相等
+  - 如果相等，匹配成功
+  - 如果不相等，匹配失败
 
 
 ### @Inject
@@ -305,3 +320,4 @@ public class Car {
 > 参考文章 [Spring整理系列(11)——@Configuration注解、@Bean注解以及配置自动扫描、bean作用域](https://blog.csdn.net/javaloveiphone/article/details/52182899)</br>
 > 参考文章 [精进Spring—Spring常用注解【经典总结】](https://blog.csdn.net/u010648555/article/details/76299467)</br>
 > 参考文章 [Spring常用注解介绍](https://zhuanlan.zhihu.com/p/43235193)</br>
+> 参考文章 [@Resource注解用法](https://blog.csdn.net/u010502101/article/details/78950045)</br>
