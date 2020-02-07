@@ -179,5 +179,5 @@ Mybatis的整个运行流程，是紧紧围绕着数据库连接词配置文件S
 
 
 > 参考文章：[https://www.jianshu.com/p/fcb69c6e2bf3](https://www.jianshu.com/p/fcb69c6e2bf3)</br>
-> 参考文章：[关于Spring IOC (DI-依赖注入)你需要知道的一切](https://blog.csdn.net/javazejian/article/details/54561302#%E5%9F%BA%E4%BA%8Eautowired%E6%B3%A8%E8%A7%A3%E7%9A%84%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D)
+> 参考文章：[关于Spring IOC (DI-依赖注入)你需要知道的一切](https://blog.csdn.net/javazejian/article/details/54561302#%E5%9F%BA%E4%BA%8Eautowired%E6%B3%A8%E8%A7%A3%E7%9A%84%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D)</br>
 > 参考书目：SpringMVC + Mybatis开发从入门到项目实战 朱要光编著
