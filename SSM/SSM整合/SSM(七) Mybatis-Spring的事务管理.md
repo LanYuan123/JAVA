@@ -35,7 +35,7 @@ public void courseAddTest(){
 
 ```
 @Test
-@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT)
+@Transactional
 @Rollback(false) //就算抛出了异常，也不会回滚事务
 public void courseAddTest(){
     Course course1 = new Course();
@@ -49,7 +49,7 @@ public void courseAddTest(){
     assert flag;
 }
 ```
-
+所以我们在使用Junit进行单测的时候，使用Spring提供的声明式事务管理，可以防止执行测试类都修改库中的数据，使得数据库数据被污染
 
 
 > 参考文章：[Spring编程式和声明式事务实例讲解](https://juejin.im/post/5b010f27518825426539ba38)</br>
