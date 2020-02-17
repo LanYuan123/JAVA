@@ -2,15 +2,16 @@
 Java及JavaWeb学习记录
 
 **目录：**
-- [SE]()
+
+## SE
   -[Java中的值传递]()
-- [SSM]()
+## SSM
   - [Maven]()
   - [Mybatis]()
   - [Spring]()
   - [SpringMVC]()
   - [SSM整合]()
-- [Servlet]()
+## Servlet
   - [Ajax]()
   - [Cooike学习]()
   - [EL表达式]()
@@ -26,7 +27,7 @@ Java及JavaWeb学习记录
   - [监听器]()
   - [过滤器]()
   - [重定向和请求转发]()
-- [杂记]()
+## 杂记
   - [10种常见的软件架构模式]()
   - [IDEA快捷键]()
   - [J2EE的四层结构]()
