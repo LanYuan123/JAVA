@@ -21,6 +21,7 @@
   * [:palm_tree:@GetMapping](#-palm-tree--getmapping)
   * [:palm_tree:@PostMapping](#-palm-tree--postmapping)
   * [:palm_tree:@DeleteMapping](#-palm-tree--deletemapping)
+  * [:palm_tree:@PutMapping](#-palm-tree--putmapping)
   * [:palm_tree:@ModelAttribute](#-palm-tree--modelattribute)
   * [:palm_tree:@SessionAttribute](#-palm-tree--sessionattribute)
 
@@ -223,11 +224,22 @@
 
    组合注解
    ```
-   @DELETEMapping(value = "/hello")
+   @DeleteMapping(value = "/hello")
    ```
    相当于：
    ```
    @RequestMapping(value = "/hello" , method = RequestMethod.DELETE)
+   ```
+   
+## :palm_tree:@PutMapping
+
+   组合注解
+   ```
+   @PutMapping(value = "/hello")
+   ```
+   相当于：
+   ```
+   @RequestMapping(value = "/hello" , method = RequestMethod.PUT)
    ```
 
 ## :palm_tree:@ModelAttribute
