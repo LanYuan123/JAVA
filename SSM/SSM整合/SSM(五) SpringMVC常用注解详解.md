@@ -128,29 +128,89 @@
 ## :palm_tree:@RequestBody
 
    该注解用于读取Request请求的body部分数据，使用系统默认配置的HttpMessageConverter进行解析，然后把相应的数据绑定到要返回的对象上，再把HttpMessageConverter返回的对象数据绑定到 controller中方法的参数上。 
+   
+   - ReuqestBody 主要是处理json串格式的请求参数
+   - RequestBody 要求调用方使用post请求
+   - RequsetBody参数，不会放在HttpServletRequest的Map中，因此没法通过javax.servlet.ServletRequest#getParameter获取
+   - RequestBody无法处理multipart/form-data格式的数据
 
 ## @RequestParam和@RequestBody之间的区别
 
+- 一个请求只能有一个RequestBody；一个请求，可以有多个RequestParam
+- RequestBody接收的是请求体里面的数据，RequestParam接收的是key-value里面的参数
+- RequestBody可以处理application/x-www-form-urlencoded，application/json,application/xml等格式的数据，但是RequestParam只能处理application/x-www-form-urlencoded格式的数据
 
 ## :palm_tree:@ResponseBody
 
+   放在方法上，表示此方法返回的数据放在body体中，而不是跳转页面。一般用于ajax请求，返回json数据
+
 ## :palm_tree:@RestController
+
+   这个是@Controller和@ResponseBody的注解组合，同时实现了@Controller和@ResponseBody的作用，可以放在类上，也可以放在方法上，放在类上表示，此类中所有方法都加上@Controller和@ResponseBody
 
 ## :palm_tree:@PathVariable
 
+   获取url中的数据
+   ```
+   @RestController
+   public class GetManInfo {
+       @RequestMapping(value = "/hello/{id}" , method = RequestMethod.GET)
+      public  String getId(@PathVariable("id") int id){
+          return "id:"+id;
+      }
+   }
+   ```
+   获取URL路径中的{id}的值，并将其注入到@PathVariable修饰的变量id上
+
 ## :palm_tree:@RequestHeader
+
+   放在参数前，用来获取request header中的参数
+   
 
 ## :palm_tree:@CookieValue
 
+   放在方法参数前，用来获取request header cookie中的参数值
+
 ## :palm_tree:@GetMapping
+   
+   组合注解
+   ```
+   @GetMapping(value = "/hello")
+   ```
+   相当于：
+   ```
+   @RequestMapping(value = "/hello" , method = RequestMethod.GET)
+   ```
 
 ## :palm_tree:@PostMapping
 
+   组合注解
+   ```
+   @PostMapping(value = "/hello")
+   ```
+   相当于：
+   ```
+   @RequestMapping(value = "/hello" , method = RequestMethod.POST)
+   ```
+
 ## :palm_tree:@DeleteMapping
+
+   组合注解
+   ```
+   @DELETEMapping(value = "/hello")
+   ```
+   相当于：
+   ```
+   @RequestMapping(value = "/hello" , method = RequestMethod.DELETE)
+   ```
 
 ## :palm_tree:@ModelAttribute
 
+   用于添加一个或多个属性到model上，可被应用在方法或方法参数上
+
 ## :palm_tree:@SessionAttribute
+
+   作用于处理器类上，用于在多个请求之间传递参数，类似于Session的Attribute，但不完全一样，一般来说@SessionAttribute设置的参数只用于暂时的传递，而不是长期的保存，长期保存的数据还是要放到Session中。
 
 
 > 参考文章：[@RequestMapping 用法详解之地址映射](https://blog.csdn.net/walkerJong/article/details/7994326)
