@@ -13,6 +13,7 @@
     + [打印reponse的信息](#打印reponse的信息)
     + [打印响应过来的信息](#打印响应过来的信息)
     + [该次测试成功与否判断](#该次测试成功与否判断)
+    + [设置编码格式](#设置编码格式)
 
 
 # MockMVC简介及使用
@@ -140,48 +141,181 @@ MockMVC实现了对Http请求的模拟，能够直接使用网络的形式，转
       mockMvc.perform(builders);
   }
   ```
+  
+  - 注入对象
+  
+  ```
+  @Test
+  public void loginTest() throws Exception {
+      MockHttpServletRequestBuilder builders = post("/user/login").
+              param("jobNumber","2018110124").
+              param("passWord","123456").
+              param("sex","1");
+      mockMvc.perform(builders);
+  }
+  ```
+  
+  - 注入对象中还有联结对象
+  
+  ```
+  @Test
+  public void loginTest() throws Exception {
+      MockHttpServletRequestBuilder builders = post("/user/login").
+              param("jobNumber","2018110124").
+              param("passWord","123456").
+              param("sex","1").
+              param("address.provinceName","广东").
+              param("address.cityName","广州");
+      mockMvc.perform(builders);
+  }
+  ```
+  
+  - 注入对象有List集合
+  
+  ```
+  @Test
+  public void loginTest() throws Exception {
+      MockHttpServletRequestBuilder builders = post("/user/login").
+              param("List[0]","2018110124").
+              param("passWord","123456").
+              param("sex","1").
+              param("list[0].provinceName","广东").
+              param("list[1].cityName","广州").
+              param("list[0].provinceName","四川").
+              param("list[1].cityName","成都");
+      mockMvc.perform(builders);
+  }
+  ```
+  
+  - 注入对象有Map集合
+  
+  ```
+  @Test
+  public void loginTest() throws Exception {
+      MockHttpServletRequestBuilder builders = post("/user/login").
+              param("List[0]","2018110124").
+              param("passWord","123456").
+              param("sex","1").
+              param("map['key1'].provinceName","广东").
+              param("map['key1'].cityName","广州").
+              param("map['key2'].provinceName","四川").
+              param("map['key2'].cityName","成都");
+      mockMvc.perform(builders);
+  }
+  ```
 
+ - 注入Date对象
+ 
+ ```
+ @Test
+ public void loginTest() throws Exception {
+     MockHttpServletRequestBuilder builders = post("/user/login").
+             param("date","2020-02-18");
+     mockMvc.perform(builders);
+ }
+ ```
+ 
+  
 ### 设置json串
 
   将一个json串作为参数传入：
   ```
-  
+  @Test
+  public void loginTest() throws Exception {
+      String json = "{\n" +
+              "\t\"id\": 20,\n" +
+              "\t\"jobNmuber\": \"220200218\",\n" +
+              "\t\"passWord\": \"12346\"\n" +
+              "}";
+      MockHttpServletRequestBuilder builders = post("/user/login").
+              accept(MediaType.APPLICATION_JSON).
+              content(json);
+      mockMvc.perform(builders);
+  }
   ```
 
 ### 设置请求的Content-Type
 
   设置Request的Content-Type：
   ```
-  
+  @Test
+  public void loginTest() throws Exception {
+      MockHttpServletRequestBuilder builders = post("/user/login").
+              contentType(MediaType.APPLICATION_JSON);
+      mockMvc.perform(builders);
+  }
   ```
 
 ### 设置响应的Content-Type
 
   设置Response的Content-Type：
   ```
-  
+  @Test
+  public void loginTest() throws Exception {
+      MockHttpServletRequestBuilder builders = post("/user/login").
+              accept(MediaType.APPLICATION_JSON);
+      mockMvc.perform(builders);
+  }
   ```
 
 ### 打印reponse的信息
 
   将服务器响应的Http所有信息打印出来：
   ```
-  
+  @Test
+  public void loginTest() throws Exception {
+      MockHttpServletRequestBuilder builders = post("/user/login").
+              accept(MediaType.APPLICATION_JSON).
+              param("jobNumber","20200218").
+              param("passWord","123456");
+      mockMvc.perform(builders).andDo(print());
+  }
   ```
+  print()是MockMvcResultHandlers类下的静态方法，需要我们静态导入
 
 ### 打印响应过来的信息
 
   将服务器返回的信息(比如字符串)打印出来:
   ```
-  
+  @Test
+  public void loginTest() throws Exception {
+      MockHttpServletRequestBuilder builders = post("/user/login").
+              accept(MediaType.APPLICATION_JSON).
+              param("jobNumber","20200218").
+              param("passWord","123456");
+      String result = mockMvc.perform(builders).
+              andReturn().getResponse().
+              getContentAsString();
+      System.out.println(result);
+  }
   ```
 
 ### 该次测试成功与否判断
 
   对该次请求的响应状态码进行判断：
   ```
-  
+  @Test
+  public void loginTest() throws Exception {
+      MockHttpServletRequestBuilder builders = post("/user/login").
+              accept(MediaType.APPLICATION_JSON).
+              param("jobNumber","20200218").
+              param("passWord","123456");
+      mockMvc.perform(builders).andExpect(status().isOk());
+  }
   ```
+  status()方法需要静态导入，isOK()方法判断返回状态码是否是200 OK
+  
+### 设置编码格式
+
+ 设置响应的编码格式
+ ```
+ @Test
+ public void loginTest() throws Exception {
+     MockHttpServletRequestBuilder builders = post("/user/login").
+             characterEncoding("UTF-8");
+     mockMvc.perform(builders).andExpect(status().isOk());
+ }
+ ```
 
 > 参考文章：[翻译:Spring MVC Test Framework--MockMvc使用](https://misakatang.cn/2018/10/18/%E7%BF%BB%E8%AF%91-Spring-MVC-Test-Framework-MockMvc%E4%BD%BF%E7%94%A8/)</br>
 >参考视频：[MockMVC学习](https://www.bilibili.com/video/av81751501?p=7)
