@@ -321,6 +321,8 @@ MockMVC实现了对Http请求的模拟，能够直接使用网络的形式，转
  
 ### 向Mock测试中添加Filter
 
+ 在对Controller层使用Mock测试的时候，默认是不会将Filter添加到测试当中的，这需要我们手动去添加
+
  向Mock测试中添加Filter
  ```
  private MockMvc mockMvc;
@@ -333,6 +335,23 @@ MockMVC实现了对Http请求的模拟，能够直接使用网络的形式，转
  }
  ```
  在创建MockMvc对象的时候，就需要加上addFilter方法，在这之后的所有用到这个MockMvc对象的地方，都会添加上这个过滤器
+ 
+ 
+ 
+### 向请求头中添加信息
+
+ 在一些实际开发中，很多情况下我们需要涉及到用户权限问题，就是拿到用户客户端登录后的token，在代码中进行校验，一般都是在controller层首先进行校验，如果校验成功，则执行之后操作，否则采取相应操作，或者返回到登录界面或者错误界面
+ 
+ 但是我们进行单测的时候，怎么拿到用户登录时候的token呢，这里就是用模拟登陆实现，也就是我们向模拟的请求头中手动添加token
+ 
+ ```
+ @Test
+ public void logoutTest() throws Exception {
+     MockHttpServletRequestBuilder builders = post("/user/login").
+             header("token","token字符串");
+ }
+ ```
+ 使用header方法来向请求头中添加数据
 
 > 参考文章：[翻译:Spring MVC Test Framework--MockMvc使用](https://misakatang.cn/2018/10/18/%E7%BF%BB%E8%AF%91-Spring-MVC-Test-Framework-MockMvc%E4%BD%BF%E7%94%A8/)</br>
 >参考视频：[MockMVC学习](https://www.bilibili.com/video/av81751501?p=7)
