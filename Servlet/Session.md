@@ -27,9 +27,9 @@ Cookie 以明文的方式存储了用户信息，造成了非常大的安全隐�
   这一条语句既可以创建Session对象，也可以获取Session对象
   
   - 创建Session对象：
-    - 如果请求中**拥有JSESSIONID**，则**返回其对应的session对象**</br>
-    - 如果请求中**没有JSESSIONID**，则**创建**新的session对象，并将JSESSIONID作为Cookie信息创建，并且响应
-    - 如果**session对象是失效**了，也会**创建一个session对象**，并将其JSESSIONID存储在浏览器内存之中
+    - 如果请求中拥有JSESSIONID，则返回其对应的session对象
+    - 如果请求中没有JSESSIONID，则创建新的session对象，并将JSESSIONID作为Cookie信息创建，并且响应
+    - 如果session对象是失效了，也会创建一个session对象，并将其JSESSIONID存储在浏览器内存之中
     - 创建好Session对象之后，该语句也自动将JSESSIONID添加到Request的Cookie之中
   - 获取session对象
     - 如果Request对象中的cookie含有JSESSIONID，则获取该session对象
