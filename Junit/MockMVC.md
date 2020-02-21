@@ -14,6 +14,7 @@
     + [打印响应过来的信息](#打印响应过来的信息)
     + [该次测试成功与否判断](#该次测试成功与否判断)
     + [设置编码格式](#设置编码格式)
+    + [向Mock测试中添加Filter](#向mock测试中添加filter)
 
 
 # MockMVC简介及使用
@@ -316,6 +317,22 @@ MockMVC实现了对Http请求的模拟，能够直接使用网络的形式，转
      mockMvc.perform(builders).andExpect(status().isOk());
  }
  ```
+ 
+ 
+### 向Mock测试中添加Filter
+
+ 向Mock测试中添加Filter
+ ```
+ private MockMvc mockMvc;
+
+ @Before
+ public void before(){
+     mockMvc = MockMvcBuilders.webAppContextSetup(applicationContext).
+             addFilter(new CharacterEncodingFilter()).
+             build();
+ }
+ ```
+ 在创建MockMvc对象的时候，就需要加上addFilter方法，在这之后的所有用到这个MockMvc对象的地方，都会添加上这个过滤器
 
 > 参考文章：[翻译:Spring MVC Test Framework--MockMvc使用](https://misakatang.cn/2018/10/18/%E7%BF%BB%E8%AF%91-Spring-MVC-Test-Framework-MockMvc%E4%BD%BF%E7%94%A8/)</br>
 >参考视频：[MockMVC学习](https://www.bilibili.com/video/av81751501?p=7)
