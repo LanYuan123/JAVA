@@ -132,7 +132,7 @@ MockMVC实现了对Http请求的模拟，能够直接使用网络的形式，转
 
 ## MockMVC常用功能API
 
-MockMvcRequestBuilders的主要API：
+**MockMvcRequestBuilders的主要API：**
 
 方法名|作用
 :--:|:--:|
@@ -143,7 +143,7 @@ put|模拟put请求
 fileUpload|文件上传方式的请求
 asyncDispatch|创建一个从启动异步处理的请求的MvcResult进行异步分派的RequestBuilder
 
-MockHttpServletRequestBuilder和MockMultipartHttpServletRequestBuilder的常用API：
+**MockHttpServletRequestBuilder和MockMultipartHttpServletRequestBuilder的常用API：**
 
 方法名|作用
 :--:|:--:|
@@ -164,6 +164,14 @@ contextPath|指定请求的上下文路径，必须以“/”开头，且不能�
 pathInfo|请求的路径信息，必须以“/”开头
 secure|请求是否使用安全通道
 with|请求的后处理器，用于自定义一些请求处理的扩展点
+
+**ResultActions常用API：**
+
+方法名|作用
+:--:|:--:|
+andExpect|添加验证断言来判断执行请求后的结果是否是预期的，具体使用见以下
+andDo|添加结果处理器，用于对验证成功后执行的动作，如输出下请求/结果信息用于调试,结合静态方法print使用，具体使用见以下
+andReturn|返回验证成功后的MvcResult；用于自定义验证/下一步的异步处理，具体使用见以下
 
 ### 模拟各种方法的请求
 
