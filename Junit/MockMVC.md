@@ -102,7 +102,7 @@ MockMVC实现了对Http请求的模拟，能够直接使用网络的形式，转
 
   MockMVC的使用是基于"流式理念"来进行的
   
-  - 通过MockMvcRequestBuilders的post，get,delete等静态方法构建出MockHttpServletRequestBuilder对象，不同的方法代表不同的http请求（比如post方法就代表post方法的http请求），方法中的参数即是请求的URL,设置好请求对象后，通过MockMVC对象的perform方法执行，模拟出一个Http请求
+  - 通过MockMvcRequestBuilders的post，get,delete,put等静态方法构建出MockHttpServletRequestBuilder对象，不同的方法代表不同的http请求（比如post方法就代表post方法的http请求），方法中的参数即是请求的URL,设置好请求对象后，通过MockMVC对象的perform方法执行，模拟出一个Http请求
   
   ```
   @RunWith(SpringJUnit4ClassRunner.class)
@@ -129,6 +129,79 @@ MockMVC实现了对Http请求的模拟，能够直接使用网络的形式，转
   ```
 
 ## MockMVC常用功能API
+
+MockMvcRequestBuilders的主要API：
+
+方法名|作用
+:--:|:--:|
+get|模拟get请求
+post|模拟post请求
+delete|模拟delete请求
+put|模拟put请求
+fileUpload|文件上传方式的请求
+asyncDispatch|创建一个从启动异步处理的请求的MvcResult进行异步分派的RequestBuilder
+
+MockHttpServletRequestBuilder和MockMultipartHttpServletRequestBuilder的常用API：
+
+方法名|作用
+:--:|:--:|
+param/params|添加请求参数
+header/headers|添加头信息
+contentType|指定请求的contentType头信息
+accept|指定请求的Accept头信息
+content|指定请求Body体内容
+cookie|指定请求的cookie
+locale|指定请求的Locale
+characterEncoding|指定请求字符编码
+requestAttr|设置请求属性数据
+sessionAttr/sessionAttrs|设置请求session属性数据
+flashAttr|指定请求的flash信息，比如重定向后的属性信息
+session|指定请求的Session
+principal|指定请求的Principal
+contextPath|指定请求的上下文路径，必须以“/”开头，且不能以“/”结尾
+pathInfo|请求的路径信息，必须以“/”开头
+secure|请求是否使用安全通道
+with|请求的后处理器，用于自定义一些请求处理的扩展点
+
+### 模拟各种方法的请求
+
+  可以通过MockMvcRequestBuilders的多个静态方法（比如get，post，delete，put等）来模拟各种方法的HTTP请求，我们只需要在参数内填入请求路径即可
+  
+  ```
+  @Test
+  public void logoutTest() throws Exception {
+      MockHttpServletRequestBuilder builders = MockMvcRequestBuilders.post("/user/login");
+  }
+  ```
+  
+  该方法最后会返回一个MockHttpServletRequestBuilder对象，将此对象放入到MockMVC对象的perform方法中执行
+  
+### 提供文件上传方式的请求
+
+  提供文件上传请求的模拟
+  
+  ```
+  byte[] bytes = new byte[] {1, 2};  
+  mockMvc.perform(fileUpload("/user/{id}/icon", 1L).file("icon", bytes)) //执行文件上传  
+          .andExpect(model().attribute("icon", bytes)) //验证属性相等性  
+          .andExpect(view().name("success")); //验证视图  
+  5.JSON请求/响应验证
+  String requestBody = "{\"id\":1, \"name\":\"zhang\"}";  
+      mockMvc.perform(post("/user")  
+              .contentType(MediaType.APPLICATION_JSON).content(requestBody)  
+              .accept(MediaType.APPLICATION_JSON)) //执行请求  
+              .andExpect(content().contentType(MediaType.APPLICATION_JSON)) //验证响应contentType  
+              .andExpect(jsonPath("$.id").value(1)); //使用Json path验证JSON 请参考http://goessner.net/articles/JsonPath/   
+      String errorBody = "{id:1, name:zhang}";  
+      MvcResult result = mockMvc.perform(post("/user")  
+              .contentType(MediaType.APPLICATION_JSON).content(errorBody)  
+              .accept(MediaType.APPLICATION_JSON)) //执行请求  
+              .andExpect(status().isBadRequest()) //400错误请求  
+              .andReturn();   
+      Assert.assertTrue(HttpMessageNotReadableException.class.isAssignableFrom(result.getResolvedException().getClass()));//错误的请求内容体
+  ```
+  
+  该方法最后会返回一个MockMultipartHttpServletRequestBuilder对象
 
 ### 设置参数
 
@@ -353,5 +426,8 @@ MockMVC实现了对Http请求的模拟，能够直接使用网络的形式，转
  ```
  使用header方法来向请求头中添加数据
 
+ 
+
 > 参考文章：[翻译:Spring MVC Test Framework--MockMvc使用](https://misakatang.cn/2018/10/18/%E7%BF%BB%E8%AF%91-Spring-MVC-Test-Framework-MockMvc%E4%BD%BF%E7%94%A8/)</br>
->参考视频：[MockMVC学习](https://www.bilibili.com/video/av81751501?p=7)
+> 参考视频：[MockMVC学习](https://www.bilibili.com/video/av81751501?p=7)</br>
+> 参考文章：[使用MockMvc测试 Controller](https://blog.csdn.net/Adam_allen/article/details/79919921)
