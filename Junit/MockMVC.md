@@ -191,27 +191,27 @@ andReturn|返回验证成功后的MvcResult；用于自定义验证/下一步的
   提供文件上传请求的模拟
   
   ```
-  byte[] bytes = new byte[] {1, 2};  
-  mockMvc.perform(fileUpload("/user/{id}/icon", 1L).file("icon", bytes)) //执行文件上传  
-          .andExpect(model().attribute("icon", bytes)) //验证属性相等性  
-          .andExpect(view().name("success")); //验证视图  
-  5.JSON请求/响应验证
-  String requestBody = "{\"id\":1, \"name\":\"zhang\"}";  
-      mockMvc.perform(post("/user")  
-              .contentType(MediaType.APPLICATION_JSON).content(requestBody)  
-              .accept(MediaType.APPLICATION_JSON)) //执行请求  
-              .andExpect(content().contentType(MediaType.APPLICATION_JSON)) //验证响应contentType  
-              .andExpect(jsonPath("$.id").value(1)); //使用Json path验证JSON 请参考http://goessner.net/articles/JsonPath/   
-      String errorBody = "{id:1, name:zhang}";  
-      MvcResult result = mockMvc.perform(post("/user")  
-              .contentType(MediaType.APPLICATION_JSON).content(errorBody)  
-              .accept(MediaType.APPLICATION_JSON)) //执行请求  
-              .andExpect(status().isBadRequest()) //400错误请求  
-              .andReturn();   
-      Assert.assertTrue(HttpMessageNotReadableException.class.isAssignableFrom(result.getResolvedException().getClass()));//错误的请求内容体
+  @Test
+  public void addTeacherListTest() throws Exception {
+      File excelFile = new File("D:\\Excel.xlsx");
+      MockMultipartFile file = new MockMultipartFile("excelFile",
+              "Excel.xlsx",
+              MediaType.TEXT_PLAIN_VALUE,
+              new FileInputStream(excelFile));
+      mockMvc.perform(multipart("/user/upload").
+              file(file)).
+              andDo(print());
+  }
   ```
   
-  该方法最后会返回一个MockMultipartHttpServletRequestBuilder对象
+  - 使用file(MockMultipartFile file)方法进行文件的上传，需要的参数为MockMultipartFile对象
+  - MockMultipartFile对象的构造函数有4个参数
+    - 第一个参数：上传文件的名字
+    - 第二个参数：上传文件的本来的名字
+    - 第三个参数：上传的媒体类型
+    - 第四个参数：上传文件的输出流FileInputStream对象
+  - 请求类型在以前是使用fileupload，现在该方法已经弃用，现使用multipart请求
+  - Controller层接收方法的请求类型设置为post
 
 ### 设置参数
 
