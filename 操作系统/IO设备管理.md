@@ -44,7 +44,7 @@ CPU无法之间控制IO设备的机械部件，因此IO设备还要一个电子�
 2. IO逻辑：负责接收和识别CPU的各种命令，并负责对设备发出命令
 3. 控制器和设备的接口：用于实现控制器和设备之间的通信
 
-![IO控制器的组成]()
+![IO控制器](https://github.com/Lany-Java/JavaStudy/blob/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/img/IO%E6%8E%A7%E5%88%B6%E5%99%A8.png)
 
 我们需要注意几个细节：
 1. 一个IO控制器可能会对应多个设备
@@ -54,13 +54,13 @@ CPU无法之间控制IO设备的机械部件，因此IO设备还要一个电子�
 
 优点：简化了指令。可以采用对内存进行操作的指令来对控制器进行操作
 
-![内存IO映像]()
+![内存IO映像](https://github.com/Lany-Java/JavaStudy/blob/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/img/%E5%86%85%E5%AD%98%E6%98%A0%E5%83%8F.png)
 
 寄存器独立编址：控制器中的寄存器使用单独的地址
 
 缺点：需要设置专门的指令来实现对控制器的操作，不仅要指明寄存器的地址，还要指明控制器的编号
 
-![寄存器独立编址]()
+![寄存器独立编址](https://github.com/Lany-Java/JavaStudy/blob/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/img/%E5%AF%84%E5%AD%98%E5%99%A8%E7%8B%AC%E7%AB%8B%E7%BC%96%E5%9D%80.png)
 
 -----
 
@@ -79,13 +79,13 @@ CPU无法之间控制IO设备的机械部件，因此IO设备还要一个电子�
 3. DMA方式
 4. 通道控制方式
 
-![IO控制方式]()
+![IO控制方式](https://github.com/Lany-Java/JavaStudy/blob/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/img/IO%E6%8E%A7%E5%88%B6%E6%96%B9%E5%BC%8F.png)
 
 ### 程序直接控制方式
 
 key words：**轮询**
 
-![程序直接控制]()
+![程序直接控制](https://github.com/Lany-Java/JavaStudy/blob/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/img/%E7%A8%8B%E5%BA%8F%E7%9B%B4%E6%8E%A5%E6%8E%A7%E5%88%B6.png)
 
 下面来看看进行一次读操作需要进行的操作：
 1. **CPU**通过**控制线**向控制器发送读指令。于是设备启动，并且状态寄存器设置为**未就绪状态**
@@ -95,7 +95,7 @@ key words：**轮询**
 5. CPU发现设备已经**就绪**，即可将**数据寄存器**中的内容读入**CPU的寄存器**中，再把CPU寄存器中的内容放入内存
 6. 若还要继续读入数据，则CPU继续发出读指令
 
-![程序直接控制流程图]()
+![程序直接控制流程图](https://github.com/Lany-Java/JavaStudy/blob/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/img/%E7%A8%8B%E5%BA%8F%E7%9B%B4%E6%8E%A5%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
 
 - CPU的干涉频率：**很频繁**，IO操作开始之前，**完成之后需要CPU的介入，并且在等待IO完成的过程中CPU需要不断的轮询检查**
 - 每次读/写**一个字**
@@ -113,7 +113,7 @@ key words：**轮询**
 1. CPU会在每个指令周期的末尾检查中断
 2. 中断处理过程中需要保存、恢复进程的运行环境，这个过程会有一定的时间开销，可见，如果中断的频率太高，也会降低系统性能
 
-![中断驱动]()
+![中断驱动流程图](https://github.com/Lany-Java/JavaStudy/blob/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/img/%E4%B8%AD%E6%96%AD%E9%A9%B1%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
 
 - CPU干预频率：**每次读写开始之前、完成之后需要CPU介入**，等待过程CPU可以为其他进程服务
 - 每次读/写一个字
@@ -130,11 +130,11 @@ key words：**轮询**
 2. 数据的流向是从设备直接放入内存，或者直接从内存到设备，**不需要途径CPU**
 3. 仅在传送一个或者多个数据块的**开始和结束时，才需要CPU的干预**
 
-![DMA流程图]()
+![DMA流程图](https://github.com/Lany-Java/JavaStudy/blob/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/img/DMA%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
 
 DMA方式使DMA控制器来实现，DMA控制器同样也是IO控制器，只是和普通的IO控制器有一定的区别，但他同样也是有IO逻辑、与CPU接口、与设备接口三个部分组成
 
-![DMA]()
+![DMA](https://github.com/Lany-Java/JavaStudy/blob/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/img/DMA.png)
 
 - **DR（数据寄存器）**：暂时从设备到内存，或从内存到设备的数据
 - **MAR（内存地址寄存器）**：在输入时，MAR表示数据应放到内存的什么位置；在输出时，表示要输出的数据放在内存的什么位置
@@ -157,7 +157,7 @@ DMA方式使DMA控制器来实现，DMA控制器同样也是IO控制器，只是
 
 通道：一种硬件，可以理解为“**弱鸡版CPU”**。通道可以识别并执行一系列**通道指令**
 
-![通道控制]()
+![通道控制](https://github.com/Lany-Java/JavaStudy/blob/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/img/%E9%80%9A%E9%81%93%E6%8E%A7%E5%88%B6.png)
 
 1. CPU**向通道发出IO指令**，**指明通道程序在内存中的位置**，并且**指明要操作哪个IO设备**。之后CPU切换到其他进程运行
 2. **通道执行内存中的通道程序**（其中指明要读入/写出多少数据，读/写的数据应该放在内存的什么位置等信息）
